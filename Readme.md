@@ -1,7 +1,7 @@
 # Проект «Киноман»
 
 * Студент: [Kirill Ananyev](https://up.htmlacademy.ru/ecmascript/19/user/1765683).
-* Наставник: `Неизвестно`
+* Наставник: [Константин Филипчук](https://htmlacademy.ru/profile/id997001).
 
 ---
 
