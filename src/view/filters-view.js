@@ -9,13 +9,13 @@ function createFiltersTemplate() {
         All movies
       </a>
       <a href="#watchlist" class="main-navigation__item">
-        Watchlist <span class="main-navigation__item-count">0</span>
+        Watchlist <span class="main-navigation__item-count">24</span>
       </a>
       <a href="#history" class="main-navigation__item">
-        History <span class="main-navigation__item-count">0</span>
+        History <span class="main-navigation__item-count">9</span>
       </a>
       <a href="#favorites" class="main-navigation__item">
-        Favorites <span class="main-navigation__item-count">0</span>
+        Favorites <span class="main-navigation__item-count">3</span>
       </a>
     </nav>`;
 }
