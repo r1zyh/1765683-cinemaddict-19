@@ -4,7 +4,7 @@ function createFilmSectionTemplate() {
   return '<section class="films"></section>';
 }
 
-export default class FilmView {
+export default class FilmSectionView {
   getTemplate() {
     return createFilmSectionTemplate();
   }

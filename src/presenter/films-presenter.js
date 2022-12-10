@@ -1,13 +1,14 @@
 import {render} from '../render.js';
 import FilmCardView from '../view/film-card-view.js';
-import FilmView from '../view/film-section-view.js';
+import FilmSectionView from '../view/film-section-view.js';
 import FilmListContainerView from '../view/film-list-container-view.js';
 import FilmListView from '../view/film-list-view.js';
 import ShowMoreButtonView from '../view/show-more-button-view.js';
 import SortView from '../view/sort-view.js';
 import FiltersView from '../view/filters-view.js';
+
 export default class FilmsPresenter {
-  filmComponent = new FilmView();
+  filmComponent = new FilmSectionView();
   filmListContainerComponent = new FilmListContainerView();
   filmListComponent = new FilmListView();
   sortComponent = new SortView();

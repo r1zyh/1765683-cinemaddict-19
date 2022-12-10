@@ -1,7 +1,8 @@
 import { createElement } from '../render.js';
 
 function createFiltersTemplate() {
-  return `<nav class="main-navigation">
+  return `
+    <nav class="main-navigation">
       <a
         href="#all"
         class="main-navigation__item main-navigation__item--active"
@@ -17,7 +18,8 @@ function createFiltersTemplate() {
       <a href="#favorites" class="main-navigation__item">
         Favorites <span class="main-navigation__item-count">3</span>
       </a>
-    </nav>`;
+    </nav>
+    `;
 }
 
 export default class FiltersView {

@@ -8,6 +8,7 @@ import FilmsPresenter from './presenter/films-presenter.js';
 const siteHeader = document.querySelector('.header');
 const siteMain = document.querySelector('.main');
 const siteFooter = document.querySelector('.footer');
+
 const popupComponent = new FilmPopupView();
 
 const filmsPresenter = new FilmsPresenter({filmsContainer: siteMain});
@@ -18,5 +19,4 @@ render(popupComponent, document.body);
 
 filmsPresenter.init();
 
-setTimeout(() => {popupComponent.removeElement();}, 5000);
 

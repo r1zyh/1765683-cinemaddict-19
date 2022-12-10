@@ -2,7 +2,8 @@ import {createElement} from '../render.js';
 
 function createFilmPopupTemplate() {
   return (
-    `<section class="film-details">
+    `
+    <section class="film-details">
       <div class="film-details__inner">
         <div class="film-details__top-container">
           <div class="film-details__close">
@@ -166,7 +167,8 @@ function createFilmPopupTemplate() {
           </section>
         </div>
       </div>
-    </section>`
+    </section>
+    `
   );
 }
 
@@ -184,6 +186,6 @@ export default class FilmPopupView {
   }
 
   removeElement() {
-    this.element.innerHTML = '';
+    this.element = null;
   }
 }
