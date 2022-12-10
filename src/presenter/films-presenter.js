@@ -6,6 +6,7 @@ import FilmListView from '../view/film-list-view.js';
 import ShowMoreButtonView from '../view/show-more-button-view.js';
 import SortView from '../view/sort-view.js';
 import FiltersView from '../view/filters-view.js';
+
 export default class FilmsPresenter {
   filmComponent = new FilmView();
   filmListContainerComponent = new FilmListContainerView();
