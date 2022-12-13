@@ -1,5 +1,5 @@
 import { createFilm} from '../mocks/film.js';
-import { getRandomElementArray } from '../utils.js';
+import { getRandomArrayElement } from '../utils.js';
 import { FILMS_LIST_LENGTH } from '../mock.js/const.js';
 
 export default class FilmsModel {
@@ -10,10 +10,10 @@ export default class FilmsModel {
   }
 
   getFilmsForExtraMode() {
-    return [getRandomElementArray(this.films), getRandomElementArray(this.films)];
+    return [ getRandomArrayElement(this.films), getRandomArrayElement(this.films)];
   }
 
   getFilmForPopup() {
-    return getRandomElementArray(this.films);
+    return getRandomArrayElement(this.films);
   }
 }
