@@ -1,6 +1,6 @@
-import { createFilm} from '../mocks/film.js';
-import { getRandomArrayElement } from '../utils.js';
-import { FILMS_LIST_LENGTH } from '../mock.js/const.js';
+import { createFilm } from '../mock/film.js';
+import { getRandomArrayElement } from '../util.js';
+import { FILMS_LIST_LENGTH } from '../mock/const.js';
 
 export default class FilmsModel {
   films = Array.from({ length: FILMS_LIST_LENGTH }, createFilm);

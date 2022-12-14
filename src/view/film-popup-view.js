@@ -1,6 +1,7 @@
 import {createElement} from '../render.js';
 
-function createFilmPopupTemplate() {
+function createFilmPopupTemplate(card) {
+  const {poster, title, raiting, director, writers, actors, releaseDate, duration, country, genres} = card;
   return (
     `
     <section class="film-details">
