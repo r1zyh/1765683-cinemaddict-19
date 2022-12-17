@@ -1,5 +1,5 @@
 import { getRandomInt, getRandomArrayElement } from '../util.js';
-import { createComment } from './comment.js';
+import { mockComments } from './comment.js';
 import { SOME_POSTER, BOOLEAN } from './const.js';
 
 const FILM_ID = 20;
@@ -39,14 +39,14 @@ const WATCHING_DATES = ['1975-08-09T00:00:00.000Z', '2000-03-21T00:00:00.000Z', 
 const createFilm = () =>
   ({
     id: getRandomInt(FILM_ID),
-    comments: [createComment.id$, createComment.id$],
+    comments: [mockComments.id$, mockComments.id$],
     filmInfo: {
       title: getRandomArrayElement(TITLES),
-      alternativeTitle: 'Laziness Who Sold Themselves',
+      alternativeTitle: `Origin: ${TITLES}.`,
       totalRating: getRandomInt(FILM_RATING).toFixed(1),
       poster: `images/posters/${SOME_POSTER}`,
       ageRating: getRandomArrayElement(AGE_RATING),
-      director: getRandomArrayElement(DIRECTORS),
+      directors: getRandomArrayElement(DIRECTORS),
       writers: getRandomArrayElement(WRITERS),
       actors: getRandomArrayElement(ACTORS),
       release: {
@@ -54,7 +54,7 @@ const createFilm = () =>
         releaseCountry: getRandomArrayElement(RELEASE_COUNTRIES),
       },
       duration: getRandomArrayElement(DURATION),
-      genre: getRandomArrayElement(GENRES),
+      genres: getRandomArrayElement(GENRES),
       description: getRandomArrayElement(DESCRIPTIONS),
     },
     userDetails: {

@@ -1,7 +1,5 @@
 import { getRandomInt, getRandomArrayElement } from '../util.js';
 
-const COMMENT_ID = 20;
-
 const COMMENT_AUTHORS = ['DecaDD', 'Belarus', 'Kelmoon', 'xaniya', 'TordonDNK'];
 
 const COMMENT_EMOTIONS = ['smile', 'sleeping', 'puke', 'angry'];
@@ -20,14 +18,38 @@ const COMMENTS_TEXT = [
   'In rutrum ac purus sit amet tempus.'
 ];
 
-const createComment = () => (
+const mockComments = [
   {
-    id: getRandomInt(COMMENT_ID),
+    id: 1,
+    author: getRandomArrayElement(COMMENT_AUTHORS),
+    comment: getRandomArrayElement(COMMENTS_TEXT),
+    date: getRandomArrayElement(COMMENT_DATES),
+    emotion: getRandomArrayElement(COMMENT_EMOTIONS),
+  },
+
+  {
+    id: 2,
+    author: getRandomArrayElement(COMMENT_AUTHORS),
+    comment: getRandomArrayElement(COMMENTS_TEXT),
+    date: getRandomArrayElement(COMMENT_DATES),
+    emotion: getRandomArrayElement(COMMENT_EMOTIONS),
+  },
+
+  {
+    id: 3,
+    author: getRandomArrayElement(COMMENT_AUTHORS),
+    comment: getRandomArrayElement(COMMENTS_TEXT),
+    date: getRandomArrayElement(COMMENT_DATES),
+    emotion: getRandomArrayElement(COMMENT_EMOTIONS),
+  },
+
+  {
+    id: 4,
     author: getRandomArrayElement(COMMENT_AUTHORS),
     comment: getRandomArrayElement(COMMENTS_TEXT),
     date: getRandomArrayElement(COMMENT_DATES),
     emotion: getRandomArrayElement(COMMENT_EMOTIONS),
   }
-);
+];
 
-export { createComment };
+export { mockComments };

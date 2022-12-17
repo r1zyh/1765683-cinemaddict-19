@@ -4,6 +4,5 @@ import FilmsModel from '../model/film-model.js';
 const siteMain = document.querySelector('.main');
 const filmModel = new FilmsModel();
 
-const filmsPresenter = new FilmsPresenter({ filmsContainer: siteMain, filmModel });
+export const filmsPresenter = new FilmsPresenter({ filmsContainer: siteMain, filmModel });
 
-filmsPresenter.init();
