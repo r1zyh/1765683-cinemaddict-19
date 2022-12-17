@@ -39,7 +39,7 @@ const WATCHING_DATES = ['1975-08-09T00:00:00.000Z', '2000-03-21T00:00:00.000Z', 
 const createFilm = () =>
   ({
     id: getRandomInt(FILM_ID),
-    comments: [mockComments.id$, mockComments.id$],
+    comments: [ mockComments[2].id, mockComments[3].id ],
     filmInfo: {
       title: getRandomArrayElement(TITLES),
       alternativeTitle: `Origin: ${TITLES}.`,
