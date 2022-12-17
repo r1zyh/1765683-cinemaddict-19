@@ -1,7 +1,5 @@
 import { getRandomArrayElement } from '../util.js';
 
-const FILMS_LIST_LENGTH = 6;
-
 const BOOLEAN = [true, false];
 
 const POSTERS = [
@@ -16,4 +14,12 @@ const POSTERS = [
 
 const SOME_POSTER = getRandomArrayElement(POSTERS);
 
-export {FILMS_LIST_LENGTH, BOOLEAN, SOME_POSTER};
+const USER_RANK = ['Novice', 'Fan', 'Movie Buff'];
+
+const SOME_RANK = getRandomArrayElement(USER_RANK);
+
+const getUserProfile = () => ({
+  userRank: SOME_RANK,
+});
+
+export { BOOLEAN, SOME_POSTER, getUserProfile };

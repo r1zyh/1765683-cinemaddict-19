@@ -7,18 +7,22 @@ import ShowMoreButtonView from '../view/show-more-button-view.js';
 import SortView from '../view/sort-view.js';
 import FiltersView from '../view/filters-view.js';
 
+
 export default class FilmsPresenter {
   filmComponent = new FilmSectionView();
-  filmListContainerComponent = new FilmListContainerView();
+  filmListContainerComponent = new FilmListContainerView({film: this.boardFilms});
   filmListComponent = new FilmListView();
   sortComponent = new SortView();
   filtersViewComponent = new FiltersView();
 
-  constructor({ filmsContainer }) {
+  constructor({ filmsContainer, filmModel }) {
     this.filmsContainer = filmsContainer;
+    this.filmModel = filmModel;
   }
 
   init() {
+    this.boardFilms = [...this.filmModel.getFilms()];
+
     render(this.filtersViewComponent, this.filmsContainer);
     render(this.sortComponent, this.filmsContainer);
     render(this.filmComponent, this.filmsContainer);
@@ -28,8 +32,8 @@ export default class FilmsPresenter {
       this.filmListComponent.getElement()
     );
 
-    for (let i = 0; i < 5; i++) {
-      render(new FilmCardView(), this.filmListContainerComponent.getElement());
+    for (let i = 1; i < this.boardFilms.length; i++) {
+      render(new FilmCardView({film: this.boardFilms[i]}), this.filmListContainerComponent.getElement());
     }
     render(new ShowMoreButtonView(), this.filmListContainerComponent.getElement());
   }

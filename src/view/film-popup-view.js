@@ -1,7 +1,9 @@
-import {createElement} from '../render.js';
+import { createElement } from '../render.js';
 
-function createFilmPopupTemplate(card) {
-  const { filmInfo } = card;
+function createFilmPopupTemplate(film) {
+  const { filmInfo } = film;
+  const { description, ageRating, alternativeTitle, poster, title, totalRating, genres, release, duration, directors, actors, writers } = filmInfo;
+
   return (
     `
     <section class="film-details">
@@ -12,55 +14,55 @@ function createFilmPopupTemplate(card) {
           </div>
           <div class="film-details__info-wrap">
             <div class="film-details__poster">
-              <img class="film-details__poster-img" src="./images/posters/${filmInfo.poster}" alt="title">
-              <p class="film-details__age">${filmInfo.ageRating}</p>
+              <img class="film-details__poster-img" src="./${poster}" alt="title">
+              <p class="film-details__age">${ageRating}</p>
             </div>
             <div class="film-details__info">
               <div class="film-details__info-head">
                 <div class="film-details__title-wrap">
-                  <h3 class="film-details__title">${filmInfo.title}</h3>
-                  <p class="film-details__title-original">${filmInfo.alternativeTitle}</p>
+                  <h3 class="film-details__title">${title}</h3>
+                  <p class="film-details__title-original">${alternativeTitle}</p>
                 </div>
                 <div class="film-details__rating">
-                  <p class="film-details__total-rating">${filmInfo.rating}</p>
+                  <p class="film-details__total-rating">${totalRating}</p>
                 </div>
               </div>
               <table class="film-details__table">
                 <tr class="film-details__row">
                   <td class="film-details__term">Director</td>
-                  <td class="film-details__cell">${filmInfo.directors}</td>
+                  <td class="film-details__cell">${directors}</td>
                 </tr>
                 <tr class="film-details__row">
                   <td class="film-details__term">Writers</td>
-                  <td class="film-details__cell">${filmInfo.writers}</td>
+                  <td class="film-details__cell">${writers}</td>
                 </tr>
                 <tr class="film-details__row">
                   <td class="film-details__term">Actors</td>
-                  <td class="film-details__cell">${filmInfo.actors}</td>
+                  <td class="film-details__cell">${actors}</td>
                 </tr>
                 <tr class="film-details__row">
                   <td class="film-details__term">Release Date</td>
-                  <td class="film-details__cell">${filmInfo.releaseDate}</td>
+                  <td class="film-details__cell">${release.date}</td>
                 </tr>
                 <tr class="film-details__row">
                   <td class="film-details__term">Duration</td>
-                  <td class="film-details__cell">${filmInfo.duration}</td>
+                  <td class="film-details__cell">${duration}</td>
                 </tr>
                 <tr class="film-details__row">
                   <td class="film-details__term">Country</td>
-                  <td class="film-details__cell">${filmInfo.releaseCountry}</td>
+                  <td class="film-details__cell">${release.releaseCountry}</td>
                 </tr>
                 <tr class="film-details__row">
                   <td class="film-details__term">Genres</td>
                   <td class="film-details__cell">
-                    <span class="film-details__genre">${filmInfo.genres}</span>
-                    <span class="film-details__genre">${filmInfo.genres}</span>
-                    <span class="film-details__genre">${filmInfo.genres}</span>
+                    <span class="film-details__genre">${genres}</span>
+                    <span class="film-details__genre">${genres}</span>
+                    <span class="film-details__genre">${genres}</span>
                 </td>
                 </tr>
               </table>
               <p class="film-details__film-description">
-                ${filmInfo.description}
+                ${description}
               </p>
             </div>
           </div>
@@ -74,8 +76,6 @@ function createFilmPopupTemplate(card) {
               name="favorite">Add to favorites</button>
           </section>
         </div>
-        
-            </form>
           </section>
         </div>
       </div>
@@ -86,12 +86,12 @@ function createFilmPopupTemplate(card) {
 
 export default class FilmPopupView {
 
-  constructor ({card}) {
-    this.card = card;
+  constructor ({film}) {
+    this.film = film;
   }
 
   getTemplate() {
-    return createFilmPopupTemplate(this.card);
+    return createFilmPopupTemplate(this.film);
   }
 
   getElement() {

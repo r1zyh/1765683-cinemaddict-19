@@ -10,10 +10,10 @@ function getRandomArrayElement(items) {
   return items[Math.floor(Math.random() * items.length)];
 }
 
-function humanizeTaskDueDate(dueDate) {
+function humanizeFilmDueDate(dueDate) {
   return dueDate ? dayjs(dueDate).format(DATE_FORMAT) : '';
 }
 
-export { getRandomInt, getRandomArrayElement, humanizeTaskDueDate };
+export { getRandomInt, getRandomArrayElement, humanizeFilmDueDate };
 
 

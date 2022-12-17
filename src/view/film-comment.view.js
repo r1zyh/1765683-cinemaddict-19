@@ -87,6 +87,7 @@ function createFilmPopupCommentsTemplate() {
           <img src="./images/emoji/angry.png" width="30" height="30" alt="emoji">
         </label>
       </div>
+      </form>
     `
   );
 }
