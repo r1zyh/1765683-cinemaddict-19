@@ -50,6 +50,9 @@ const mockComments = [
     date: getRandomArrayElement(COMMENT_DATES),
     emotion: getRandomArrayElement(COMMENT_EMOTIONS),
   }
+
 ];
 
-export { mockComments };
+const getRandomComment = () => getRandomArrayElement(mockComments);
+
+export { getRandomComment, mockComments };

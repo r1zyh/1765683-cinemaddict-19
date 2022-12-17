@@ -15,5 +15,6 @@ export default class FilmsModel {
 
   getFilmForPopup() {
     return getRandomArrayElement(this.films);
+
   }
 }

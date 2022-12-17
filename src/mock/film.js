@@ -1,7 +1,6 @@
 import { getRandomInt, getRandomArrayElement } from '../util.js';
-import { mockComments } from './comment.js';
 import { SOME_POSTER, BOOLEAN } from './const.js';
-
+import { mockComments } from './comment.js';
 const FILM_ID = 20;
 
 const FILM_RATING = 10;
@@ -39,7 +38,7 @@ const WATCHING_DATES = ['1975-08-09T00:00:00.000Z', '2000-03-21T00:00:00.000Z', 
 const createFilm = () =>
   ({
     id: getRandomInt(FILM_ID),
-    comments: [ mockComments[2].id, mockComments[3].id ],
+    comments: [mockComments[1].id, mockComments[3].id],
     filmInfo: {
       title: getRandomArrayElement(TITLES),
       alternativeTitle: `Origin: ${TITLES}.`,
