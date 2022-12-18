@@ -1,4 +1,4 @@
-import { getRandomInt, getRandomArrayElement } from '../util.js';
+import { getRandomInt, getRandomArrayElement, getRandomUniqArrayElement } from '../util.js';
 import { SOME_POSTER, BOOLEAN } from './const.js';
 import { mockComments } from './comment.js';
 const FILM_ID = 20;
@@ -17,15 +17,15 @@ const TITLES = [
 
 const DIRECTORS = ['Takeshi Kitano', 'Martin Scorsese', 'Quentin Tarantino', 'Guy Ritchie', 'Woody Allen', 'Tim Burton' ];
 
-const WRITERS = ['Anne Wigton', 'Heinz Herald', 'Richard Weil', 'Andrei Tarkovsky', 'Alexey Balabanov', 'Yuri Bykov' ];
+const WRITERS = [' Anne Wigton', ' Heinz Herald', ' Richard Weil', ' Andrei Tarkovsky', ' Alexey Balabanov', ' Yuri Bykov' ];
 
-const ACTORS = ['Will Smith', 'Ben Affleck', 'Tom Cruise', 'Johnny Depp', 'Keanu Reeves', 'Leonardo Dicaprio', 'Mark Wahlberg'];
+const ACTORS = [' Will Smith', ' Ben Affleck', ' Tom Cruise', ' Johnny Depp', ' Keanu Reeves', ' Leonardo Dicaprio', ' Mark Wahlberg'];
 
 const RELEASE_DATE = ['1972-02-05T00:00:00.000Z', '1997-05-17T00:00:00.000Z', '2014-08-09T00:00:00.000Z'];
 
 const RELEASE_COUNTRIES = ['Russia', 'USA', 'Finland', 'France', 'Spain', 'Norway'];
 
-const GENRES = ['Comedy', 'Drama', 'Fantasy', 'Science fiction', 'Historical film', 'Horror', 'Musical' ];
+const GENRES = [' Comedy', ' Drama', ' Fantasy', ' Science fiction', ' Historical film', ' Horror', ' Musical' ];
 
 const DESCRIPTIONS = ['The lives of 800 people in the dormitory are literally hanging by a thread due to the indifference of local authorities. The building could collapse at any moment. And who would have thought that the fate of people would be in the hands of a simple plumber. But will he be able to change something and prevent a catastrophe?',
   'A new scientist, psychologist Chris Kelvin, arrives at the space station, whose employees have long and vainly tried to cope with the mystery of the planet Solaris, completely covered by the Ocean. His task is to understand the strange messages coming from the station and close it along with all the fruitless "solaristics". At first, it seems to him that the few scientists who survived at the station have gone crazy, and then he himself becomes a victim of a terrible obsession: his wife Hari, who committed suicide some time ago, appears to him.',
@@ -46,14 +46,14 @@ const createFilm = () =>
       poster: `images/posters/${SOME_POSTER}`,
       ageRating: getRandomArrayElement(AGE_RATING),
       directors: getRandomArrayElement(DIRECTORS),
-      writers: getRandomArrayElement(WRITERS),
-      actors: getRandomArrayElement(ACTORS),
+      writers: getRandomUniqArrayElement(WRITERS),
+      actors: getRandomUniqArrayElement(ACTORS),
       release: {
         date: getRandomArrayElement(RELEASE_DATE),
         releaseCountry: getRandomArrayElement(RELEASE_COUNTRIES),
       },
       duration: getRandomArrayElement(DURATION),
-      genres: getRandomArrayElement(GENRES),
+      genres: getRandomUniqArrayElement(GENRES),
       description: getRandomArrayElement(DESCRIPTIONS),
     },
     userDetails: {

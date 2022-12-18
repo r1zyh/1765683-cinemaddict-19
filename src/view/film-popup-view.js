@@ -69,8 +69,6 @@ function createFilmPopupTemplate(film) {
                   <td class="film-details__term">Genres</td>
                   <td class="film-details__cell">
                     <span class="film-details__genre">${genres}</span>
-                    <span class="film-details__genre">${genres}</span>
-                    <span class="film-details__genre">${genres}</span>
                 </td>
                 </tr>
               </table>

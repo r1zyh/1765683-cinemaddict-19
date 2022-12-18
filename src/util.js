@@ -2,8 +2,8 @@ import dayjs from 'dayjs';
 
 const DATE_FORMAT = 'D MMMM YYYY';
 
-function getRandomInt(max) {
-  return Math.floor(Math.random() * max);
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * max + min);
 }
 
 function getRandomArrayElement(items) {
@@ -14,6 +14,18 @@ function humanizeFilmDueDate(dueDate) {
   return dueDate ? dayjs(dueDate).format(DATE_FORMAT) : '';
 }
 
-export { getRandomInt, getRandomArrayElement, humanizeFilmDueDate };
+function getRandomUniqArrayElement(items) {
+  const length = getRandomInt(1, 6);
+  items.length = length;
+  const result = items.reduce((acc, item) => {
+    if (acc.includes(item)) {
+      return acc;
+    }
+    return [...acc, item];
+  }, []);
+  return result;
+}
+
+export { getRandomInt, getRandomArrayElement, humanizeFilmDueDate, getRandomUniqArrayElement };
 
 
