@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 
-const DATE_FORMAT = 'D MMMM';
+const DATE_FORMAT = 'D MMMM YYYY';
 
 function getRandomInt(max) {
   return Math.floor(Math.random() * max);

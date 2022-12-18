@@ -22,7 +22,7 @@ const mockComments = [
   {
     id: 1,
     author: getRandomArrayElement(COMMENT_AUTHORS),
-    comment: getRandomArrayElement(COMMENTS_TEXT),
+    commentText: getRandomArrayElement(COMMENTS_TEXT),
     date: getRandomArrayElement(COMMENT_DATES),
     emotion: getRandomArrayElement(COMMENT_EMOTIONS),
   },
@@ -30,7 +30,7 @@ const mockComments = [
   {
     id: 2,
     author: getRandomArrayElement(COMMENT_AUTHORS),
-    comment: getRandomArrayElement(COMMENTS_TEXT),
+    commentText: getRandomArrayElement(COMMENTS_TEXT),
     date: getRandomArrayElement(COMMENT_DATES),
     emotion: getRandomArrayElement(COMMENT_EMOTIONS),
   },
@@ -38,7 +38,7 @@ const mockComments = [
   {
     id: 3,
     author: getRandomArrayElement(COMMENT_AUTHORS),
-    comment: getRandomArrayElement(COMMENTS_TEXT),
+    commentText: getRandomArrayElement(COMMENTS_TEXT),
     date: getRandomArrayElement(COMMENT_DATES),
     emotion: getRandomArrayElement(COMMENT_EMOTIONS),
   },
@@ -46,7 +46,7 @@ const mockComments = [
   {
     id: 4,
     author: getRandomArrayElement(COMMENT_AUTHORS),
-    comment: getRandomArrayElement(COMMENTS_TEXT),
+    commentText: getRandomArrayElement(COMMENTS_TEXT),
     date: getRandomArrayElement(COMMENT_DATES),
     emotion: getRandomArrayElement(COMMENT_EMOTIONS),
   }
