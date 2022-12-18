@@ -28,8 +28,8 @@ export default class PopupPresenter {
     );
 
 
-    for (let i = 1; i < 5; i++) {
-      render(new FilmPopupCommentView({comments: this.comments}).getComments(), filmPopupView.getCommentsContainer());
+    for (let i = 1; i < this.comments.length; i++) {
+      render(new FilmPopupCommentView({ comments: this.comments[i]}), filmPopupView.getCommentsContainer());
     }
 
     filmPopupView.getCommentsContainer();

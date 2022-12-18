@@ -59,7 +59,7 @@ function createFilmPopupTemplate(film) {
                 </tr>
                 <tr class="film-details__row">
                   <td class="film-details__term">Duration</td>
-                  <td class="film-details__cell">${duration}</td>
+                  <td class="film-details__cell">${duration} M</td>
                 </tr>
                 <tr class="film-details__row">
                   <td class="film-details__term">Country</td>
@@ -134,6 +134,7 @@ function createFilmPopupTemplate(film) {
 export default class FilmPopupView {
   constructor({ film }) {
     this.film = film;
+
   }
 
   getTemplate() {

@@ -5,6 +5,7 @@ function createFilmListContainerTemplate() {
 }
 
 export default class FilmListContainerView {
+
   getTemplate() {
     return createFilmListContainerTemplate();
   }

@@ -1,6 +1,6 @@
 import { getRandomArrayElement } from '../util.js';
 
-const COMMENT_AUTHORS = ['DecaDD', 'Belarus', 'Kelmoon', 'xaniya', 'TordonDNK'];
+const COMMENT_AUTHORS = ['DecaDD', 'Belarus', 'Kelmoon', 'xaniya', 'TordonDNK', 'ComaWhite', 'Yusha', 'BrandMendel'];
 
 const COMMENT_EMOTIONS = ['smile', 'sleeping', 'puke', 'angry'];
 

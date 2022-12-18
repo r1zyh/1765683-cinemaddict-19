@@ -12,7 +12,7 @@ function createFilmCardTemplate(film) {
             <p class="film-card__rating">${totalRating}</p>
             <p class="film-card__info">
               <span class="film-card__year">${humanizeFilmDueDate(release.date)}</span>
-              <span class="film-card__duration">${duration}</span>
+              <span class="film-card__duration">${duration} M</span>
               <span class="film-card__genre">${genres}</span>
             </p>
             <img src="./${poster}" alt="${title}" class="film-card__poster">
