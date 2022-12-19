@@ -10,7 +10,7 @@ import FiltersView from '../view/filters-view.js';
 
 export default class FilmsPresenter {
   filmComponent = new FilmSectionView();
-  filmListContainerComponent = new FilmListContainerView({film: this.boardFilms});
+  filmListContainerComponent = new FilmListContainerView({film: this.Films});
   filmListComponent = new FilmListView();
   sortComponent = new SortView();
   filtersViewComponent = new FiltersView();
@@ -21,7 +21,7 @@ export default class FilmsPresenter {
   }
 
   init() {
-    this.boardFilms = [...this.filmModel.getFilms()];
+    this.Films = [...this.filmModel.getFilms()];
 
     render(this.filtersViewComponent, this.filmsContainer);
     render(this.sortComponent, this.filmsContainer);
@@ -32,8 +32,8 @@ export default class FilmsPresenter {
       this.filmListComponent.getElement()
     );
 
-    for (let i = 1; i < this.boardFilms.length; i++) {
-      render(new FilmCardView({film: this.boardFilms[i]}), this.filmListContainerComponent.getElement());
+    for (let i = 1; i < this.Films.length; i++) {
+      render(new FilmCardView({film: this.Films[i]}), this.filmListContainerComponent.getElement());
     }
     render(new ShowMoreButtonView(), this.filmListContainerComponent.getElement());
   }

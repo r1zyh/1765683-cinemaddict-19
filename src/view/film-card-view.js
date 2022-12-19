@@ -2,8 +2,8 @@ import { createElement } from '../render.js';
 import { humanizeFilmDueDate } from '../util.js';
 
 function createFilmCardTemplate(film) {
-  const { comments, filmInfo } = film;
-  const { description, poster, title, release, totalRating, genres, duration } = filmInfo;
+  const { filmInfo } = film;
+  const { commentCount, description, poster, title, release, totalRating, genres, duration } = filmInfo;
 
   return `
         <article class="film-card">
@@ -12,12 +12,12 @@ function createFilmCardTemplate(film) {
             <p class="film-card__rating">${totalRating}</p>
             <p class="film-card__info">
               <span class="film-card__year">${humanizeFilmDueDate(release.date)}</span>
-              <span class="film-card__duration">${duration} M</span>
+              <span class="film-card__duration">${duration}</span>
               <span class="film-card__genre">${genres}</span>
             </p>
             <img src="./${poster}" alt="${title}" class="film-card__poster">
             <p class="film-card__description">${description}</p>
-            <span class="film-card__comments">${comments}</span>
+            <span class="film-card__comments">${commentCount}</span>
           </a>
           <div class="film-card__controls">
             <button class="film-card__controls-item film-card__controls-item--add-to-watchlist film-card__controls-item--active" type="button">Add to watchlist</button>

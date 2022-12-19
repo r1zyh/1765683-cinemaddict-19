@@ -32,7 +32,5 @@ export default class PopupPresenter {
       render(new FilmPopupCommentView({ comments: this.comments[i]}), filmPopupView.getCommentsContainer());
     }
 
-    filmPopupView.getCommentsContainer();
-
   }
 }

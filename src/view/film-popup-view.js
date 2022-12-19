@@ -1,5 +1,5 @@
 import { createElement } from '../render.js';
-import { humanizeFilmDueDate } from '../util.js';
+import { humanizePopUpDueDate } from '../util.js';
 
 function createFilmPopupTemplate(film) {
   const { filmInfo } = film;
@@ -55,11 +55,11 @@ function createFilmPopupTemplate(film) {
                 </tr>
                 <tr class="film-details__row">
                   <td class="film-details__term">Release Date</td>
-                  <td class="film-details__cell">${humanizeFilmDueDate(release.date)}</td>
+                  <td class="film-details__cell">${humanizePopUpDueDate(release.date)}</td>
                 </tr>
                 <tr class="film-details__row">
                   <td class="film-details__term">Duration</td>
-                  <td class="film-details__cell">${duration} M</td>
+                  <td class="film-details__cell">${duration}</td>
                 </tr>
                 <tr class="film-details__row">
                   <td class="film-details__term">Country</td>

@@ -1,9 +1,15 @@
-import { getRandomInt, getRandomArrayElement, getRandomUniqArrayElement } from '../util.js';
+import { getRandomInt, getRandomArrayElement, getRandomUniqArrayElement, getTime } from '../util.js';
 import { SOME_POSTER, BOOLEAN } from './const.js';
 import { mockComments } from './comment.js';
-const FILM_ID = 20;
 
-const FILM_RATING = 10;
+const FILM_ID_MAX = 20;
+const FILM_ID_MIN = 1;
+
+const MIN_COMMENTS_COUNT = 0;
+const MAX_COMMENTS_COUNT = 100;
+
+const FILM_RATING_MAX = 10;
+const FILM_RATING_MIN = 0;
 
 const AGE_RATING = [0, 7, 14, 16, 18];
 
@@ -37,12 +43,12 @@ const WATCHING_DATES = ['1975-08-09T00:00:00.000Z', '2000-03-21T00:00:00.000Z', 
 
 const createFilm = () =>
   ({
-    id: getRandomInt(FILM_ID),
+    id: getRandomInt(FILM_ID_MIN, FILM_ID_MAX),
     comments: [mockComments[1].id, mockComments[3].id, mockComments[0].id, mockComments[2].id ],
     filmInfo: {
       title: getRandomArrayElement(TITLES),
       alternativeTitle: `Origin: ${TITLES}.`,
-      totalRating: getRandomInt(FILM_RATING).toFixed(1),
+      totalRating: getRandomInt(FILM_RATING_MIN ,FILM_RATING_MAX).toFixed(1),
       poster: `images/posters/${SOME_POSTER}`,
       ageRating: getRandomArrayElement(AGE_RATING),
       directors: getRandomArrayElement(DIRECTORS),
@@ -52,9 +58,10 @@ const createFilm = () =>
         date: getRandomArrayElement(RELEASE_DATE),
         releaseCountry: getRandomArrayElement(RELEASE_COUNTRIES),
       },
-      duration: getRandomArrayElement(DURATION),
+      duration: getTime(getRandomArrayElement(DURATION)),
       genres: getRandomUniqArrayElement(GENRES),
       description: getRandomArrayElement(DESCRIPTIONS),
+      commentCount: getRandomInt(MIN_COMMENTS_COUNT, MAX_COMMENTS_COUNT),
     },
     userDetails: {
       watchlist: getRandomArrayElement(BOOLEAN),
