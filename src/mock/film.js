@@ -47,7 +47,7 @@ const createFilm = () =>
     comments: [mockComments[1].id, mockComments[3].id, mockComments[0].id, mockComments[2].id ],
     filmInfo: {
       title: getRandomArrayElement(TITLES),
-      alternativeTitle: `Origin: ${TITLES}.`,
+      alternativeTitle: `Original: ${TITLES}.`,
       totalRating: getRandomInt(FILM_RATING_MIN ,FILM_RATING_MAX).toFixed(1),
       poster: `images/posters/${SOME_POSTER}`,
       ageRating: getRandomArrayElement(AGE_RATING),
@@ -59,7 +59,7 @@ const createFilm = () =>
         releaseCountry: getRandomArrayElement(RELEASE_COUNTRIES),
       },
       duration: getTime(getRandomArrayElement(DURATION)),
-      genres: getRandomUniqArrayElement(GENRES),
+      genres:   getRandomUniqArrayElement(GENRES),
       description: getRandomArrayElement(DESCRIPTIONS),
       commentCount: getRandomInt(MIN_COMMENTS_COUNT, MAX_COMMENTS_COUNT),
     },

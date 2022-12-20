@@ -2,11 +2,11 @@ import { render } from '../render.js';
 import UserRankView from '../view/user-rank-view.js';
 
 export default class HeaderPresenter {
+  siteHeader = document.querySelector('.header');
+  userRankComponent = new UserRankView();
+
   init() {
-    const siteHeader = document.querySelector('.header');
 
-    const userRankComponent = new UserRankView();
-
-    render(userRankComponent, siteHeader);
+    render(this.userRankComponent, this.siteHeader);
   }
 }

@@ -18,6 +18,17 @@ function createFilmPopupTemplate(film) {
     writers,
   } = filmInfo;
 
+  function getGenresList (someGenres) {
+    let genresTemplate = '';
+
+    for (const genre of someGenres) {
+      genresTemplate += `<span class="film-details__genre">${genre}</span>`;
+    }
+
+    return genresTemplate;
+  }
+
+
   return `
     <section class="film-details">
       <div class="film-details__inner">
@@ -27,8 +38,9 @@ function createFilmPopupTemplate(film) {
           </div>
           <div class="film-details__info-wrap">
             <div class="film-details__poster">
-              <img class="film-details__poster-img" src="./${poster}" alt="title">
-              <p class="film-details__age">${ageRating}</p>
+              <img class="film-details__poster-img" src="./${poster}" alt="${title}">
+              
+              <p class="film-details__age">${ageRating}+</p>
             </div>
             <div class="film-details__info">
               <div class="film-details__info-head">
@@ -68,7 +80,7 @@ function createFilmPopupTemplate(film) {
                 <tr class="film-details__row">
                   <td class="film-details__term">Genres</td>
                   <td class="film-details__cell">
-                    <span class="film-details__genre">${genres}</span>
+                    ${getGenresList(genres)}
                 </td>
                 </tr>
               </table>

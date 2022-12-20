@@ -18,6 +18,7 @@ const COMMENTS_TEXT = [
   'In rutrum ac purus sit amet tempus.'
 ];
 
+
 const mockComments = [
   {
     id: 1,

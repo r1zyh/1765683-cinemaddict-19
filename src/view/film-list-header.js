@@ -1,14 +1,12 @@
 import { createElement } from '../render.js';
 
-function createFilmListContainerTemplate() {
-  return `
-   <div class="films-list__container"></div>
-  `;
+function createFilmListHeaderTemplate() {
+  return '<h2 class="films-list__title visually-hidden">All movies. Upcoming</h2>';
 }
 
-export default class FilmListContainerView {
+export default class FilmListHeaderView {
   getTemplate() {
-    return createFilmListContainerTemplate();
+    return createFilmListHeaderTemplate();
   }
 
   getElement() {

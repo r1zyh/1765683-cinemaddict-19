@@ -1,5 +1,5 @@
 import { createElement } from '../render.js';
-import { humanizeFilmDueDate } from '../util.js';
+import { humanizeFilmDueDate, getComments, getRandomArrayElement, } from '../util.js';
 
 function createFilmCardTemplate(film) {
   const { filmInfo } = film;
@@ -13,11 +13,11 @@ function createFilmCardTemplate(film) {
             <p class="film-card__info">
               <span class="film-card__year">${humanizeFilmDueDate(release.date)}</span>
               <span class="film-card__duration">${duration}</span>
-              <span class="film-card__genre">${genres}</span>
+              <span class="film-card__genre">${getRandomArrayElement(genres)}</span>
             </p>
             <img src="./${poster}" alt="${title}" class="film-card__poster">
             <p class="film-card__description">${description}</p>
-            <span class="film-card__comments">${commentCount}</span>
+            <span class="film-card__comments">${getComments(commentCount)}</span>
           </a>
           <div class="film-card__controls">
             <button class="film-card__controls-item film-card__controls-item--add-to-watchlist film-card__controls-item--active" type="button">Add to watchlist</button>

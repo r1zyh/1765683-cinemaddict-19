@@ -2,9 +2,9 @@ import dayjs from 'dayjs';
 
 const DATE_FORMAT = 'D MMMM YYYY';
 const POPUP_DATE_FORMAT = 'YYYY';
+const COMMENT_DATE_FORMAT = 'YYYY/MM/DD HH:hh';
 
-const MIN_ARRAY_LENGTH = 1;
-const MAX_ARRAY_LENGTH = 6;
+const MAX_ARRAY_LENGTH = 3;
 
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * max + min);
@@ -14,6 +14,14 @@ function getTime(mins) {
   const hours = Math.trunc(mins / 60);
   const minutes = mins % 60;
   return `${hours }h ${ minutes }m`;
+}
+
+function getComments(comments) {
+  if (comments === 1) {
+    return `${comments} comment`;
+  } else {
+    return `${comments} comments`;
+  }
 }
 
 function getRandomArrayElement(items) {
@@ -28,8 +36,18 @@ function humanizePopUpDueDate(dueDate) {
   return dueDate ? dayjs(dueDate).format(DATE_FORMAT) : '';
 }
 
+function humanizeCommentsDueDate(dueDate) {
+  return dueDate ? dayjs(dueDate).format(COMMENT_DATE_FORMAT) : '';
+}
+
+
+function shuffle(array) {
+  array.sort(() => Math.random() - 0.5);
+}
+
 function getRandomUniqArrayElement(items) {
-  const length = getRandomInt(MIN_ARRAY_LENGTH, MAX_ARRAY_LENGTH);
+  const length = MAX_ARRAY_LENGTH;
+  shuffle(items);
   items.length = length;
   const result = items.reduce((acc, item) => {
     if (acc.includes(item)) {
@@ -40,6 +58,6 @@ function getRandomUniqArrayElement(items) {
   return result;
 }
 
-export { getRandomInt, getRandomArrayElement, humanizeFilmDueDate, getRandomUniqArrayElement, humanizePopUpDueDate, getTime };
+export { getRandomInt, getRandomArrayElement, humanizeFilmDueDate, getRandomUniqArrayElement, humanizePopUpDueDate, getTime, getComments, humanizeCommentsDueDate };
 
 

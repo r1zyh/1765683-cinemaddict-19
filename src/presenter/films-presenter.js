@@ -6,7 +6,7 @@ import FilmListView from '../view/film-list-view.js';
 import ShowMoreButtonView from '../view/show-more-button-view.js';
 import SortView from '../view/sort-view.js';
 import FiltersView from '../view/filters-view.js';
-
+import FilmListHeaderView from '../view/film-list-header.js';
 
 export default class FilmsPresenter {
   filmComponent = new FilmSectionView();
@@ -14,6 +14,7 @@ export default class FilmsPresenter {
   filmListComponent = new FilmListView();
   sortComponent = new SortView();
   filtersViewComponent = new FiltersView();
+  filmListHeaderComponent = new FilmListHeaderView();
 
   constructor({ filmsContainer, filmModel }) {
     this.filmsContainer = filmsContainer;
@@ -27,6 +28,7 @@ export default class FilmsPresenter {
     render(this.sortComponent, this.filmsContainer);
     render(this.filmComponent, this.filmsContainer);
     render(this.filmListComponent, this.filmComponent.getElement());
+    render(this.filmListHeaderComponent, this.filmListComponent.getElement());
     render(
       this.filmListContainerComponent,
       this.filmListComponent.getElement()
@@ -35,7 +37,7 @@ export default class FilmsPresenter {
     for (let i = 1; i < this.Films.length; i++) {
       render(new FilmCardView({film: this.Films[i]}), this.filmListContainerComponent.getElement());
     }
-    render(new ShowMoreButtonView(), this.filmListContainerComponent.getElement());
+    render(new ShowMoreButtonView(), this.filmListComponent.getElement());
   }
 }
 

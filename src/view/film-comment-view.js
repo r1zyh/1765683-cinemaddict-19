@@ -1,5 +1,5 @@
 import { createElement } from '../render.js';
-import { humanizeFilmDueDate } from '../util.js';
+import { humanizeCommentsDueDate } from '../util.js';
 function createFilmPopupCommentsTemplate(comments) {
 
   const { author, emotion, commentText, date } = comments;
@@ -14,7 +14,7 @@ function createFilmPopupCommentsTemplate(comments) {
       <p class="film-details__comment-text">${commentText}</p>
       <p class="film-details__comment-info">
         <span class="film-details__comment-author">${author}</span>
-        <span class="film-details__comment-day">${humanizeFilmDueDate(date)}</span>
+        <span class="film-details__comment-day">${humanizeCommentsDueDate(date)}</span>
         <button class="film-details__comment-delete">Delete</button>
       </p>
     </div>
