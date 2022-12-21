@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 
-const DATE_FORMAT = 'D MMMM YYYY';
-const POPUP_DATE_FORMAT = 'YYYY';
+const POPUP_DATE_FORMAT = 'D MMMM YYYY';
+const FILM_DATE_FORMAT = 'YYYY';
 const COMMENT_DATE_FORMAT = 'YYYY/MM/DD HH:hh';
 
 const MAX_ARRAY_LENGTH = 3;
@@ -29,11 +29,11 @@ function getRandomArrayElement(items) {
 }
 
 function humanizeFilmDueDate(dueDate) {
-  return dueDate ? dayjs(dueDate).format(POPUP_DATE_FORMAT) : '';
+  return dueDate ? dayjs(dueDate).format(FILM_DATE_FORMAT) : '';
 }
 
 function humanizePopUpDueDate(dueDate) {
-  return dueDate ? dayjs(dueDate).format(DATE_FORMAT) : '';
+  return dueDate ? dayjs(dueDate).format(POPUP_DATE_FORMAT) : '';
 }
 
 function humanizeCommentsDueDate(dueDate) {
