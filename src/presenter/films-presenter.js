@@ -6,32 +6,38 @@ import FilmListView from '../view/film-list-view.js';
 import ShowMoreButtonView from '../view/show-more-button-view.js';
 import SortView from '../view/sort-view.js';
 import FiltersView from '../view/filters-view.js';
+import FilmListHeaderView from '../view/film-list-header.js';
 
 export default class FilmsPresenter {
   filmComponent = new FilmSectionView();
-  filmListContainerComponent = new FilmListContainerView();
+  filmListContainerComponent = new FilmListContainerView({film: this.Films});
   filmListComponent = new FilmListView();
   sortComponent = new SortView();
   filtersViewComponent = new FiltersView();
+  filmListHeaderComponent = new FilmListHeaderView();
 
-  constructor({ filmsContainer }) {
+  constructor({ filmsContainer, filmModel }) {
     this.filmsContainer = filmsContainer;
+    this.filmModel = filmModel;
   }
 
   init() {
+    this.Films = [...this.filmModel.getFilms()];
+
     render(this.filtersViewComponent, this.filmsContainer);
     render(this.sortComponent, this.filmsContainer);
     render(this.filmComponent, this.filmsContainer);
     render(this.filmListComponent, this.filmComponent.getElement());
+    render(this.filmListHeaderComponent, this.filmListComponent.getElement());
     render(
       this.filmListContainerComponent,
       this.filmListComponent.getElement()
     );
 
-    for (let i = 0; i < 5; i++) {
-      render(new FilmCardView(), this.filmListContainerComponent.getElement());
+    for (let i = 1; i < this.Films.length; i++) {
+      render(new FilmCardView({film: this.Films[i]}), this.filmListContainerComponent.getElement());
     }
-    render(new ShowMoreButtonView(), this.filmListContainerComponent.getElement());
+    render(new ShowMoreButtonView(), this.filmListComponent.getElement());
   }
 }
 

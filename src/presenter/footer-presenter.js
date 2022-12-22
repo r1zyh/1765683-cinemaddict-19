@@ -1,8 +1,12 @@
 import { render } from '../render';
 import FooterStatisticsView from '../view/footer-statistics-view.js';
 
-const siteFooter = document.querySelector('.footer');
+export default class FooterPresenter {
+  siteFooter = document.querySelector('.footer');
+  footerComponent = new FooterStatisticsView();
 
-const footerComponent = new FooterStatisticsView();
+  init() {
 
-render(footerComponent, siteFooter);
+    render(this.footerComponent, this.siteFooter);
+  }
+}

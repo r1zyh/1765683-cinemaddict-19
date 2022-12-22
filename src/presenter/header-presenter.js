@@ -1,8 +1,12 @@
-import { render } from '../render';
-import UserRankView from '../view/user-rank-view';
+import { render } from '../render.js';
+import UserRankView from '../view/user-rank-view.js';
 
-const siteHeader = document.querySelector('.header');
+export default class HeaderPresenter {
+  siteHeader = document.querySelector('.header');
+  userRankComponent = new UserRankView();
 
-const userRankComponent = new UserRankView();
+  init() {
 
-render(userRankComponent, siteHeader);
+    render(this.userRankComponent, this.siteHeader);
+  }
+}
