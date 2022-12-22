@@ -9,7 +9,7 @@ export default class PopupPresenter {
   }
 
   init() {
-    this.film = this.filmsModel.getFilmForPopup();
+    this.film = this.filmsModel.FilmForPopup;
     this.comments = this.commentModel
       .getComments()
       .filter((comment) => this.film.comments.includes(comment.id));
@@ -29,7 +29,7 @@ export default class PopupPresenter {
 
 
     for (let i = 1; i < this.comments.length; i++) {
-      render(new FilmPopupCommentView({ comments: this.comments[i]}), filmPopupView.getCommentsContainer());
+      render(new FilmPopupCommentView({ comments: this.comments[i]}), filmPopupView.commentsContainer);
     }
 
   }

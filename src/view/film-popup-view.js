@@ -142,29 +142,33 @@ function createFilmPopupTemplate(film) {
 }
 
 export default class FilmPopupView {
+
+  #element = null;
+  #filmInfo = null;
+
   constructor({ film }) {
     this.film = film;
 
   }
 
-  getTemplate() {
+  get template() {
     return createFilmPopupTemplate(this.film);
   }
 
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
+  get element() {
+    if (!this.#element) {
+      this.#element = createElement(this.template);
     }
 
-    return this.element;
+    return this.#element;
   }
 
-  getCommentsContainer() {
-    return this.getElement().querySelector('.film-details__comments-list');
+  get commentsContainer() {
+    return this.#element.querySelector('.film-details__comments-list');
 
   }
 
   removeElement() {
-    this.element = null;
+    this.#element = null;
   }
 }

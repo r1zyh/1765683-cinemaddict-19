@@ -1,8 +1,8 @@
 import { createElement } from '../render.js';
 import { humanizeCommentsDueDate } from '../util.js';
-function createFilmPopupCommentsTemplate(comments) {
+function createFilmPopupCommentsTemplate(filmComments) {
 
-  const { author, emotion, commentText, date } = comments;
+  const { author, emotion, commentText, date } = filmComments;
 
 
   return `
@@ -23,23 +23,27 @@ function createFilmPopupCommentsTemplate(comments) {
 }
 
 export default class FilmPopupCommentView {
+
+  #element = null;
+  #filmComments = null;
+
   constructor({ comments }) {
-    this.comments = comments;
+    this.#filmComments = comments;
   }
 
-  getTemplate() {
-    return createFilmPopupCommentsTemplate(this.comments);
+  get template() {
+    return createFilmPopupCommentsTemplate(this.#filmComments);
   }
 
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
+  get element() {
+    if (!this.#element) {
+      this.#element = createElement(this.template);
     }
 
-    return this.element;
+    return this.#element;
   }
 
   removeElement() {
-    this.element = null;
+    this.#element = null;
   }
 }
