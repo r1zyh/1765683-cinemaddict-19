@@ -144,7 +144,6 @@ function createFilmPopupTemplate(film) {
 export default class FilmPopupView {
 
   #element = null;
-  #filmInfo = null;
 
   constructor({ film }) {
     this.film = film;
