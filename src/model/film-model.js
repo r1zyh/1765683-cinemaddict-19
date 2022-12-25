@@ -5,7 +5,7 @@ const FILMS_LIST_LENGTH = 6;
 export default class FilmsModel {
   #films = Array.from({ length: FILMS_LIST_LENGTH }, createFilm);
 
-  get Films() {
+  get films() {
     return this.#films;
   }
 

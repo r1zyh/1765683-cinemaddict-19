@@ -10,10 +10,11 @@ const filmModel = new FilmsModel();
 const commentModel = new CommentsModel();
 const siteBody = document.querySelector('body');
 
-const filmsPresenter = new FilmsPresenter({ filmsContainer: siteMain, filmModel });
+const popupPresenter = new PopupPresenter({popupContainer: siteBody, filmModel, commentModel});
+const filmsPresenter = new FilmsPresenter({ filmsContainer: siteMain, filmModel, popupPresenter });
 const headerPresenter = new HeaderPresenter();
 const footerPresenter = new FooterPresenter();
-const popupPresenter = new PopupPresenter({popupContainer: siteBody, filmModel, commentModel});
+
 
 headerPresenter.init();
 filmsPresenter.init();
