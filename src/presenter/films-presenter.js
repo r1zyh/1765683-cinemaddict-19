@@ -46,21 +46,39 @@ export default class FilmsPresenter {
   }
 
   #renderFilmCard(i) {
+
     const filmCard = new FilmCardView({film: this.#filmCards[i]});
     const filmPopup = new FilmPopupView({film: this.#filmCards[i], comments: [i]});
 
     const filmCardLinks = filmCard.element.querySelector('a');
     const popupCloseBtn = filmPopup.element.querySelector('.film-details__close-btn');
 
+    const showPopup = () => {
+      document.body.appendChild(filmPopup.element);
+      document.body.classList.add('hide-overflow');
+    };
+
+    const closePopup = () => {
+      document.body.removeChild(filmPopup.element);
+      document.body.classList.remove('hide-overflow');
+    };
+
+    const escKeyDownHandler = (evt) => {
+      if (evt.key === 'Escape' || evt.key === 'Esc') {
+        evt.preventDefault();
+        closePopup();
+        document.removeEventListener('keydown', escKeyDownHandler);
+      }
+    };
+
     filmCardLinks.addEventListener('click', () => {
-      console.log('show popup')
-      this.popupPresenter.showPopup(filmPopup);
-      console.log(this.popupPresenter)
+      showPopup();
+      document.addEventListener('keydown', escKeyDownHandler);
     });
 
     popupCloseBtn.addEventListener('click', () => {
-      console.log('close popup!')
-      filmPopup.removeElement();
+      closePopup();
+      document.removeEventListener('keydown', escKeyDownHandler);
     });
 
     render(filmCard, this.#filmListContainerComponent.element);
