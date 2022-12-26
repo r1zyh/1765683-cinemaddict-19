@@ -10,6 +10,7 @@ import FilmListHeaderView from '../view/film-list-header.js';
 import FilmPopupView from '../view/film-popup-view.js';
 
 export default class FilmsPresenter {
+  #container = document.querySelector('.main')
   #filmSectionComponent = new FilmSectionView();
   #filmListContainerComponent = new FilmListContainerView({film: this.filmCards});
   #filmListComponent = new FilmListView();
@@ -19,18 +20,22 @@ export default class FilmsPresenter {
   #filmsContainer;
   #filmCards;
 
-  constructor({ filmsContainer, filmModel, popupPresenter }) {
-    this.#filmsContainer = filmsContainer;
+  constructor({ filmModel, commentModel }) {
+    //this.#filmsContainer = filmsContainer;
     this.filmModel = filmModel;
-    this.popupPresenter = popupPresenter;
+    this.commentModel = commentModel;
+    //this.popupPresenter = popupPresenter;
+    /*this.comments = this.commentModel
+      .getComments()
+      .filter((comment) => this.film.comments.includes(comment.id));*/
   }
 
   init() {
     this.#filmCards = [...this.filmModel.films];
 
-    render(this.#filtersComponent, this.#filmsContainer);
-    render(this.#sortComponent, this.#filmsContainer);
-    render(this.#filmSectionComponent, this.#filmsContainer);
+    render(this.#filtersComponent, this.#container);
+    render(this.#sortComponent, this.#container);
+    render(this.#filmSectionComponent, this.#container);
     render(this.#filmListComponent, this.#filmSectionComponent.element);
     render(this.#filmListHeaderComponent, this.#filmListComponent.element);
     render(
@@ -48,7 +53,7 @@ export default class FilmsPresenter {
   #renderFilmCard(i) {
 
     const filmCard = new FilmCardView({film: this.#filmCards[i]});
-    const filmPopup = new FilmPopupView({film: this.#filmCards[i], comments: [i]});
+    const filmPopup = new FilmPopupView({film: this.#filmCards[i], comments: this.comments});
 
     const filmCardLinks = filmCard.element.querySelector('a');
     const popupCloseBtn = filmPopup.element.querySelector('.film-details__close-btn');
