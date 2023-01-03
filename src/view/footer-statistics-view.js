@@ -8,7 +8,7 @@ function createFooterStatisticsTemplate() {
   `;
 }
 
-export default class FooterStatisticsView {
+export default class FooterStatistics {
 
   #element = null;
 

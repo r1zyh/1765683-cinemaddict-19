@@ -22,7 +22,7 @@ function createFiltersTemplate() {
     `;
 }
 
-export default class FiltersView {
+export default class Filters {
 
   #element = null;
 

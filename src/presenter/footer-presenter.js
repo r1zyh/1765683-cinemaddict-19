@@ -1,9 +1,9 @@
 import { render } from '../render';
-import FooterStatisticsView from '../view/footer-statistics-view.js';
+import FooterStatistics from '../view/footer-statistics-view.js';
 
 export default class FooterPresenter {
   #siteFooter = document.querySelector('.footer');
-  #footerComponent = new FooterStatisticsView();
+  #footerComponent = new FooterStatistics();
 
   init() {
 

@@ -4,7 +4,7 @@ function createFilmListContainerTemplate() {
   return '<div class="film-details__bottom-container"></div>';
 }
 
-export default class FilmListContainerView {
+export default class FilmCommentContainer {
 
   #element = null;
 

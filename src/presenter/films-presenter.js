@@ -1,22 +1,22 @@
 import {render} from '../render.js';
-import FilmCardView from '../view/film-card-view.js';
-import FilmSectionView from '../view/film-section-view.js';
-import FilmListContainerView from '../view/film-list-container-view.js';
-import FilmListView from '../view/film-list-view.js';
-import ShowMoreButtonView from '../view/show-more-button-view.js';
-import SortView from '../view/sort-view.js';
-import FiltersView from '../view/filters-view.js';
-import FilmListHeaderView from '../view/film-list-header.js';
-import FilmPopupView from '../view/film-popup-view.js';
+import FilmCard from '../view/film-card-view.js';
+import FilmSection from '../view/film-section-view.js';
+import FilmListContainer from '../view/film-list-container-view.js';
+import FilmList from '../view/film-list-view.js';
+import ShowMoreButton from '../view/show-more-button-view.js';
+import Sort from '../view/sort-view.js';
+import Filters from '../view/filters-view.js';
+import FilmListHeader from '../view/film-list-header.js';
+import FilmPopup from '../view/film-popup-view.js';
 
 export default class FilmsPresenter {
   #container = document.querySelector('.main')
-  #filmSectionComponent = new FilmSectionView();
-  #filmListContainerComponent = new FilmListContainerView({film: this.filmCards});
-  #filmListComponent = new FilmListView();
-  #sortComponent = new SortView();
-  #filtersComponent = new FiltersView();
-  #filmListHeaderComponent = new FilmListHeaderView();
+  #filmSectionComponent = new FilmSection();
+  #filmListContainerComponent = new FilmListContainer({film: this.filmCards});
+  #filmListComponent = new FilmList();
+  #sortComponent = new Sort();
+  #filtersComponent = new Filters();
+  #filmListHeaderComponent = new FilmListHeader();
   #filmsContainer;
   #filmCards;
 
@@ -47,13 +47,13 @@ export default class FilmsPresenter {
 
       this.#renderFilmCard(i);
     }
-    render(new ShowMoreButtonView(), this.#filmListComponent.element);
+    render(new ShowMoreButton(), this.#filmListComponent.element);
   }
 
   #renderFilmCard(i) {
 
-    const filmCard = new FilmCardView({film: this.#filmCards[i]});
-    const filmPopup = new FilmPopupView({film: this.#filmCards[i], comments: this.comments});
+    const filmCard = new FilmCard({film: this.#filmCards[i]});
+    const filmPopup = new FilmPopup({film: this.#filmCards[i], comments: this.commentModel.getComments()});
 
     const filmCardLinks = filmCard.element.querySelector('a');
     const popupCloseBtn = filmPopup.element.querySelector('.film-details__close-btn');
@@ -87,6 +87,7 @@ export default class FilmsPresenter {
     });
 
     render(filmCard, this.#filmListContainerComponent.element);
+
   }
 
 }

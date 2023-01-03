@@ -4,7 +4,7 @@ function createShowMoreButtonTemplate() {
   return '<button class="films-list__show-more">Show more</button>';
 }
 
-export default class ShowMoreButtonView {
+export default class ShowMoreButton {
 
   #element = null;
 

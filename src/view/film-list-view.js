@@ -6,7 +6,7 @@ function createFilmListTemplate() {
   `;
 }
 
-export default class FilmListView {
+export default class FilmList {
 
   #element = null;
 

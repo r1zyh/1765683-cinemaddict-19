@@ -10,7 +10,7 @@ function createFilmSortTemplate() {
   `;
 }
 
-export default class SortView {
+export default class Sort {
 
   #element = null;
 

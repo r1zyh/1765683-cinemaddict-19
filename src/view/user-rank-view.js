@@ -9,7 +9,7 @@ function createUserRankTemplate() {
     `;
 }
 
-export default class UserRankView {
+export default class UserRank {
 
   #element = null;
 

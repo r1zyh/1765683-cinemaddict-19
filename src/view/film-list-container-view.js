@@ -6,7 +6,7 @@ function createFilmListContainerTemplate() {
   `;
 }
 
-export default class FilmListContainerView {
+export default class FilmListContainer {
 
   #element = null;
 

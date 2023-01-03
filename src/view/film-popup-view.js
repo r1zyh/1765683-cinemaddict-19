@@ -141,7 +141,7 @@ function createFilmPopupTemplate(film) {
     `;
 }
 
-export default class FilmPopupView {
+export default class FilmPopup {
 
   #element = null;
 
