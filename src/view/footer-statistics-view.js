@@ -9,7 +9,6 @@ function createFooterStatisticsTemplate() {
 }
 
 export default class FooterStatistics {
-
   #element = null;
 
   get template() {

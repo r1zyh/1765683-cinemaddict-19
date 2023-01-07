@@ -10,14 +10,13 @@ import FilmListHeader from '../view/film-list-header.js';
 import FilmPopup from '../view/film-popup-view.js';
 
 export default class FilmsPresenter {
-  #container = document.querySelector('.main')
+  #mainContainer = document.querySelector('.main');
   #filmSectionComponent = new FilmSection();
-  #filmListContainerComponent = new FilmListContainer({film: this.filmCards});
+  #filmListContainerComponent = new FilmListContainer();
   #filmListComponent = new FilmList();
   #sortComponent = new Sort();
   #filtersComponent = new Filters();
   #filmListHeaderComponent = new FilmListHeader();
-  #filmsContainer;
   #filmCards;
 
   constructor({ filmModel, commentModel }) {
@@ -33,9 +32,9 @@ export default class FilmsPresenter {
   init() {
     this.#filmCards = [...this.filmModel.films];
 
-    render(this.#filtersComponent, this.#container);
-    render(this.#sortComponent, this.#container);
-    render(this.#filmSectionComponent, this.#container);
+    render(this.#filtersComponent, this.#mainContainer);
+    render(this.#sortComponent, this.#mainContainer);
+    render(this.#filmSectionComponent, this.#mainContainer);
     render(this.#filmListComponent, this.#filmSectionComponent.element);
     render(this.#filmListHeaderComponent, this.#filmListComponent.element);
     render(
@@ -53,7 +52,9 @@ export default class FilmsPresenter {
   #renderFilmCard(i) {
 
     const filmCard = new FilmCard({film: this.#filmCards[i]});
-    const filmPopup = new FilmPopup({film: this.#filmCards[i], comments: this.commentModel.getComments()});
+    const filmPopup = new FilmPopup({film: this.#filmCards[i], comments: this.comments = this.commentModel
+      .getComments()
+      .filter((comment) => this.#filmCards[i].comments.includes(comment.id))});
 
     const filmCardLinks = filmCard.element.querySelector('a');
     const popupCloseBtn = filmPopup.element.querySelector('.film-details__close-btn');

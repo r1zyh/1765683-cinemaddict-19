@@ -23,7 +23,6 @@ function createFilmPopupCommentsTemplate(filmComments) {
 }
 
 export default class FilmPopupComment {
-
   #element = null;
   #filmComments = null;
 

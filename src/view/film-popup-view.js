@@ -142,7 +142,6 @@ function createFilmPopupTemplate(film) {
 }
 
 export default class FilmPopup {
-
   #element = null;
 
   constructor({ film }) {

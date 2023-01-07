@@ -5,7 +5,6 @@ function createFilmListHeaderTemplate() {
 }
 
 export default class FilmListHeader {
-
   #element = null;
 
   get template() {

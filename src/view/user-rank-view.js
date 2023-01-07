@@ -10,7 +10,6 @@ function createUserRankTemplate() {
 }
 
 export default class UserRank {
-
   #element = null;
 
   get template() {

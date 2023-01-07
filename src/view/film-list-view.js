@@ -7,7 +7,6 @@ function createFilmListTemplate() {
 }
 
 export default class FilmList {
-
   #element = null;
 
   get template() {

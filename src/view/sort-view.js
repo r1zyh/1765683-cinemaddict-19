@@ -11,7 +11,6 @@ function createFilmSortTemplate() {
 }
 
 export default class Sort {
-
   #element = null;
 
   get template() {

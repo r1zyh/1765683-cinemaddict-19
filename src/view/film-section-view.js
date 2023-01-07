@@ -5,7 +5,6 @@ function createFilmSectionTemplate() {
 }
 
 export default class FilmSection {
-
   #element = null;
 
   get template() {

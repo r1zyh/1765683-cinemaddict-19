@@ -23,7 +23,6 @@ function createFiltersTemplate() {
 }
 
 export default class Filters {
-
   #element = null;
 
   get template() {

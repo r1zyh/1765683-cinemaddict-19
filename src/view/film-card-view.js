@@ -29,7 +29,6 @@ function createFilmCardTemplate(film) {
 }
 
 export default class FilmCard {
-
   #element = null;
   #filmInfo = null;
 
