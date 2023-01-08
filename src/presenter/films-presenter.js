@@ -9,6 +9,7 @@ import Filters from '../view/filters-view.js';
 import FilmListHeader from '../view/film-list-header.js';
 import FilmPopup from '../view/film-popup-view.js';
 import EmptyListMessage from '../view/empty-film-list-message.js';
+import FilmPopupCommentView from '../view/film-comment-view.js';
 
 
 const FILM_COUNT_PER_STEP = 5;
@@ -90,10 +91,16 @@ export default class FilmsPresenter {
       .filter((comment) => this.#filmCards[i].comments.includes(comment.id));
 
     const filmCard = new FilmCard({ film: this.#filmCards[i] });
-    const filmPopup = new FilmPopup({ film: this.#filmCards[i], comments });
+    const filmPopup = new FilmPopup({ film: this.#filmCards[i] });
 
     const filmCardLinks = filmCard.element.querySelector('a');
     const popupCloseBtn = filmPopup.element.querySelector('.film-details__close-btn');
+
+    if(Array.isArray(comments)) {
+      comments.forEach((comment) => {
+        render(new FilmPopupCommentView({ comments: comment }), filmPopup.commentsContainer);
+      });
+    }
 
     const showPopup = () => {
       document.body.appendChild(filmPopup.element);

@@ -1,6 +1,5 @@
-import { createElement, render } from '../render.js';
+import { createElement } from '../render.js';
 import { humanizePopUpDueDate } from '../util.js';
-import FilmPopupCommentView from '../view/film-comment-view.js';
 
 function createFilmPopupTemplate(film) {
   const { filmInfo } = film;
@@ -145,9 +144,8 @@ function createFilmPopupTemplate(film) {
 export default class FilmPopup {
   #element = null;
 
-  constructor({ film, comments }) {
+  constructor({ film }) {
     this.film = film;
-    this.comments = comments;
   }
 
   get template() {
@@ -157,17 +155,13 @@ export default class FilmPopup {
   get element() {
     if (!this.#element) {
       this.#element = createElement(this.template);
-
-      this.comments?.forEach((comment) => {
-        render(new FilmPopupCommentView({ comments: comment }), this.commentsContainer);
-      });
     }
 
     return this.#element;
   }
 
   get commentsContainer() {
-    return this.#element.querySelector('.film-details__comments-list');
+    return this.element.querySelector('.film-details__comments-list');
   }
 
   removeElement() {
