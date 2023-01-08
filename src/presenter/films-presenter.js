@@ -9,7 +9,7 @@ import Filters from '../view/filters-view.js';
 import FilmListHeader from '../view/film-list-header.js';
 import FilmPopup from '../view/film-popup-view.js';
 import EmptyListMessage from '../view/empty-film-list-message.js';
-import FilmPopupCommentView from '../view/film-comment-view.js';
+import FilmPopupComment from '../view/film-comment-view.js';
 
 
 const FILM_COUNT_PER_STEP = 5;
@@ -98,7 +98,7 @@ export default class FilmsPresenter {
 
     if(Array.isArray(comments)) {
       comments.forEach((comment) => {
-        render(new FilmPopupCommentView({ comments: comment }), filmPopup.commentsContainer);
+        render(new FilmPopupComment({ comments: comment }), filmPopup.commentsContainer);
       });
     }
 

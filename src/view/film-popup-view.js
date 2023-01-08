@@ -161,7 +161,7 @@ export default class FilmPopup {
   }
 
   get commentsContainer() {
-    return this.element.querySelector('.film-details__comments-list');
+    return this.#element.querySelector('.film-details__comments-list');
   }
 
   removeElement() {
