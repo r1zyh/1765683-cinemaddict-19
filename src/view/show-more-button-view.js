@@ -4,21 +4,23 @@ function createShowMoreButtonTemplate() {
   return '<button class="films-list__show-more">Show more</button>';
 }
 
-export default class ShowMoreButtonView {
-  getTemplate() {
+export default class ShowMoreButton {
+  #element = null;
+
+  get template() {
     return createShowMoreButtonTemplate();
   }
 
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
+  get element() {
+    if (!this.#element) {
+      this.#element = createElement(this.template);
     }
 
-    return this.element;
+    return this.#element;
   }
 
   removeElement() {
-    this.element = null;
+    this.#element = null;
   }
 }
 

@@ -4,20 +4,22 @@ function createFilmListHeaderTemplate() {
   return '<h2 class="films-list__title visually-hidden">All movies. Upcoming</h2>';
 }
 
-export default class FilmListHeaderView {
-  getTemplate() {
+export default class FilmListHeader {
+  #element = null;
+
+  get template() {
     return createFilmListHeaderTemplate();
   }
 
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
+  get element() {
+    if (!this.#element) {
+      this.#element = createElement(this.template);
     }
 
-    return this.element;
+    return this.#element;
   }
 
   removeElement() {
-    this.element = null;
+    this.#element = null;
   }
 }

@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 
 const POPUP_DATE_FORMAT = 'D MMMM YYYY';
 const FILM_DATE_FORMAT = 'YYYY';
-const COMMENT_DATE_FORMAT = 'YYYY/MM/DD HH:hh';
+const COMMENT_DATE_FORMAT = 'YYYY/MM/DD HH:mm';
 
 const MAX_ARRAY_LENGTH = 3;
 

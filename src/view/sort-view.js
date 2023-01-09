@@ -10,20 +10,22 @@ function createFilmSortTemplate() {
   `;
 }
 
-export default class SortView {
-  getTemplate() {
+export default class Sort {
+  #element = null;
+
+  get template() {
     return createFilmSortTemplate();
   }
 
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
+  get element() {
+    if (!this.#element) {
+      this.#element = createElement(this.template);
     }
 
-    return this.element;
+    return this.#element;
   }
 
   removeElement() {
-    this.element = null;
+    this.#element = null;
   }
 }
