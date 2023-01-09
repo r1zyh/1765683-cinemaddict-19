@@ -1,10 +1,25 @@
 import { getRandomArrayElement } from '../util.js';
 
-const COMMENT_AUTHORS = ['DecaDD', 'Belarus', 'Kelmoon', 'xaniya', 'TordonDNK', 'ComaWhite', 'Yusha', 'BrandMendel'];
+const COMMENT_AUTHORS = [
+  'DecaDD',
+  'Belarus',
+  'Kelmoon',
+  'xaniya',
+  'TordonDNK',
+  'ComaWhite',
+  'Yusha',
+  'BrandMendel',
+];
 
 const COMMENT_EMOTIONS = ['smile', 'sleeping', 'puke', 'angry'];
 
-const COMMENT_DATES = ['2019-05-11T16:12:32.554Z', '2019-05-22T02:06:22.527Z', '2019-08-01T21:12:32.554Z', '2019-09-11T17:11:41.529Z', '2018-12-08T09:18:32.651Z'];
+const COMMENT_DATES = [
+  '2019-05-11T16:12:32.554Z',
+  '2019-05-22T02:06:22.527Z',
+  '2019-08-01T21:12:32.554Z',
+  '2019-09-11T17:11:41.529Z',
+  '2018-12-08T09:18:32.651Z',
+];
 
 const COMMENTS_TEXT = [
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
@@ -15,9 +30,8 @@ const COMMENTS_TEXT = [
   'Sed blandit, eros vel aliquam faucibus, purus ex euismod diam, eu luctus nunc ante ut dui.',
   'Sed sed nisi sed augue convallis suscipit in sed felis.',
   'Aliquam erat volutpat. Nunc fermentum tortor ac porta dapibus.',
-  'In rutrum ac purus sit amet tempus.'
+  'In rutrum ac purus sit amet tempus.',
 ];
-
 
 const mockComments = [
   {
@@ -50,8 +64,7 @@ const mockComments = [
     commentText: getRandomArrayElement(COMMENTS_TEXT),
     date: getRandomArrayElement(COMMENT_DATES),
     emotion: getRandomArrayElement(COMMENT_EMOTIONS),
-  }
-
+  },
 ];
 
 const getRandomComment = () => getRandomArrayElement(mockComments);

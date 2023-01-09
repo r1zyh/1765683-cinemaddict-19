@@ -18,7 +18,7 @@ function createFilmPopupTemplate(film) {
     writers,
   } = filmInfo;
 
-  function getGenresList (someGenres) {
+  function getGenresList(someGenres) {
     let genresTemplate = '';
 
     for (const genre of someGenres) {
@@ -27,7 +27,6 @@ function createFilmPopupTemplate(film) {
 
     return genresTemplate;
   }
-
 
   return `
     <section class="film-details">

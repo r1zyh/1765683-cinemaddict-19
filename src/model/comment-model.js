@@ -1,4 +1,4 @@
-import {getRandomComment} from '../mock/comment.js';
+import { getRandomComment } from '../mock/comment.js';
 
 const COMMENTS_LIST_LENGTH = 6;
 

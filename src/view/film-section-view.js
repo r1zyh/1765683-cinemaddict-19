@@ -1,4 +1,4 @@
-import {createElement} from '../render.js';
+import { createElement } from '../render.js';
 
 function createFilmSectionTemplate() {
   return '<section class="films"></section>';

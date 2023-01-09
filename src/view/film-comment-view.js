@@ -1,9 +1,7 @@
 import { createElement } from '../render.js';
 import { humanizeCommentsDueDate } from '../util.js';
 function createFilmPopupCommentsTemplate(filmComments) {
-
   const { author, emotion, commentText, date } = filmComments;
-
 
   return `
   <li class="film-details__comment">
