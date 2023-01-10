@@ -1,9 +1,10 @@
 import { createElement } from '../render.js';
-import { humanizeFilmDueDate, getComments, getRandomArrayElement, } from '../util.js';
+import { humanizeFilmDueDate, getComments, getRandomArrayElement } from '../util.js';
 
 function createFilmCardTemplate(film) {
   const { filmInfo } = film;
-  const { commentCount, description, poster, title, release, totalRating, genres, duration } = filmInfo;
+  const { commentCount, description, poster, title, release, totalRating, genres, duration } =
+    filmInfo;
 
   return `
         <article class="film-card">

@@ -6,7 +6,6 @@ export default class HeaderPresenter {
   #userRankComponent = new UserRank();
 
   init() {
-
     render(this.#userRankComponent, this.#siteHeader);
   }
 }

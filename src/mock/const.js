@@ -9,7 +9,7 @@ const POSTERS = [
   'santa-claus-conquers-the-martians.jpg',
   'the-dance-of-life.jpg',
   'the-great-flamarion.jpg',
-  'the-man-with-the-golden-arm.jpg'
+  'the-man-with-the-golden-arm.jpg',
 ];
 
 const SOME_POSTER = getRandomArrayElement(POSTERS);

@@ -11,7 +11,6 @@ import FilmPopup from '../view/film-popup-view.js';
 import EmptyListMessage from '../view/empty-film-list-message.js';
 import FilmPopupComment from '../view/film-comment-view.js';
 
-
 const FILM_COUNT_PER_STEP = 5;
 export default class FilmsPresenter {
   #mainContainer = document.querySelector('.main');
@@ -41,19 +40,18 @@ export default class FilmsPresenter {
     render(this.#filmListHeaderComponent, this.#filmListComponent.element);
     render(this.#filmListContainerComponent, this.#filmListComponent.element);
 
-
-    if(this.#filmCards.length === 0) {
+    if (this.#filmCards.length === 0) {
       render(this.#emptyMessage, this.#filmListContainerComponent.element);
 
       return;
     }
 
-    const initLength = this.#filmCards.length > FILM_COUNT_PER_STEP ? FILM_COUNT_PER_STEP : this.#filmCards.length;
+    const initLength =
+      this.#filmCards.length > FILM_COUNT_PER_STEP ? FILM_COUNT_PER_STEP : this.#filmCards.length;
 
     for (let i = 1; i <= initLength; i++) {
       this.#renderFilmCard(i);
     }
-
 
     if (this.#filmCards.length > FILM_COUNT_PER_STEP) {
       render(this.#showMoreBtn, this.#filmListComponent.element);
@@ -68,7 +66,7 @@ export default class FilmsPresenter {
     const start = FILM_COUNT_PER_STEP * (this.#page - 1);
     const end = FILM_COUNT_PER_STEP * this.#page;
 
-    if(FILM_COUNT_PER_STEP * this.#page >= this.#filmCards.length) {
+    if (FILM_COUNT_PER_STEP * this.#page >= this.#filmCards.length) {
       this.#showMoreBtn.element.removeEventListener('click', this.#showMoreBtnClickHandler);
       this.#showMoreBtn.element.remove();
       this.#showMoreBtn.removeElement();
@@ -84,7 +82,6 @@ export default class FilmsPresenter {
     }
   };
 
-
   #renderFilmCard(i) {
     const comments = this.commentModel
       .getComments()
@@ -96,7 +93,7 @@ export default class FilmsPresenter {
     const filmCardLinks = filmCard.element.querySelector('a');
     const popupCloseBtn = filmPopup.element.querySelector('.film-details__close-btn');
 
-    if(Array.isArray(comments)) {
+    if (Array.isArray(comments)) {
       comments.forEach((comment) => {
         render(new FilmPopupComment({ comments: comment }), filmPopup.commentsContainer);
       });

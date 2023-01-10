@@ -1,4 +1,4 @@
-import {createElement} from '../render.js';
+import { createElement } from '../render.js';
 
 function createShowMoreButtonTemplate() {
   return '<button class="films-list__show-more">Show more</button>';
@@ -23,4 +23,3 @@ export default class ShowMoreButton {
     this.#element = null;
   }
 }
-

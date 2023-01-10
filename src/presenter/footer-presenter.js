@@ -6,7 +6,6 @@ export default class FooterPresenter {
   #footerComponent = new FooterStatistics();
 
   init() {
-
     render(this.#footerComponent, this.#siteFooter);
   }
 }
