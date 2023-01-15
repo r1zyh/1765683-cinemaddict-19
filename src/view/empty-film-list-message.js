@@ -1,4 +1,4 @@
-import { createElement } from '../render.js';
+import AbstractView from '../framework/view/abstract-view.js';
 
 function createEmptyMessageTemplate() {
   return `
@@ -8,22 +8,8 @@ function createEmptyMessageTemplate() {
   `;
 }
 
-export default class EmptyListMessage {
-  #element = null;
-
+export default class EmptyListMessage extends AbstractView {
   get template() {
     return createEmptyMessageTemplate();
-  }
-
-  get element() {
-    if (!this.#element) {
-      this.#element = createElement(this.template);
-    }
-
-    return this.#element;
-  }
-
-  removeElement() {
-    this.#element = null;
   }
 }

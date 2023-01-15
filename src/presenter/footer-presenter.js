@@ -1,4 +1,4 @@
-import { render } from '../render';
+import { render } from '../framework/render.js';
 import FooterStatistics from '../view/footer-statistics-view.js';
 
 export default class FooterPresenter {
