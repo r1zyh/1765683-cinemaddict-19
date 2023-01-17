@@ -32,9 +32,10 @@ function createFilmCardTemplate(film) {
 export default class FilmCard extends AbstractView {
   #filmInfo = null;
 
-  constructor({ film }) {
+  constructor({ film, onClick }) {
     super();
     this.#filmInfo = film;
+    this.element.addEventListener('click', onClick);
   }
 
   get template() {

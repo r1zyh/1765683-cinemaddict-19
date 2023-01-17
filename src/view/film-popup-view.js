@@ -153,4 +153,8 @@ export default class FilmPopup extends AbstractView {
   get commentsContainer() {
     return this.element.querySelector('.film-details__comments-list');
   }
+
+  setHandleClick(onClick) {
+    this.element.querySelector('.film-details__close-btn').addEventListener('click', onClick);
+  }
 }
