@@ -2,7 +2,7 @@ import { FilterType } from '../mock/const.js';
 import AbstractView from '../framework/view/abstract-view.js';
 
 function createFilterItemTemplate(filter, count, isChecked) {
-  return `<a href="#${filter}" class="main-navigation__item
+  return `<a href="${filter}" class="main-navigation__item
      ${isChecked ? 'main-navigation__item--active' : ''}">
       ${FilterType[filter]}
       ${filter === 'all' ? '' : `<span class="main-navigation__item-count">${count}</span>`}
