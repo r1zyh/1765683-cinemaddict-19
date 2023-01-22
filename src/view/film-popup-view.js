@@ -141,9 +141,10 @@ function createFilmPopupTemplate(film) {
 }
 
 export default class FilmPopup extends AbstractView {
-  constructor({ film }) {
+  constructor({ film, onClick }) {
     super();
     this.film = film;
+    this.onClick = this.element.querySelector('.film-details__close-btn').addEventListener('click', onClick);
   }
 
   get template() {
@@ -154,7 +155,7 @@ export default class FilmPopup extends AbstractView {
     return this.element.querySelector('.film-details__comments-list');
   }
 
-  setHandleClick(onClick) {
+  /*setHandleClick(onClick) {
     this.element.querySelector('.film-details__close-btn').addEventListener('click', onClick);
-  }
+  }*/
 }
