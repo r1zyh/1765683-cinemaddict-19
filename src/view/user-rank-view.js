@@ -1,4 +1,4 @@
-import { createElement } from '../render.js';
+import AbstractView from '../framework/view/abstract-view.js';
 
 function createUserRankTemplate() {
   return `
@@ -9,22 +9,8 @@ function createUserRankTemplate() {
     `;
 }
 
-export default class UserRank {
-  #element = null;
-
+export default class UserRank extends AbstractView {
   get template() {
     return createUserRankTemplate();
-  }
-
-  get element() {
-    if (!this.#element) {
-      this.#element = createElement(this.template);
-    }
-
-    return this.#element;
-  }
-
-  removeElement() {
-    this.#element = null;
   }
 }

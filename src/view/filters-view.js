@@ -1,42 +1,34 @@
-import { createElement } from '../render.js';
+import { FilterType } from '../mock/const.js';
+import AbstractView from '../framework/view/abstract-view.js';
 
-function createFiltersTemplate() {
-  return `
-    <nav class="main-navigation">
-      <a
-        href="#all"
-        class="main-navigation__item main-navigation__item--active"
-      >
-        All movies
-      </a>
-      <a href="#watchlist" class="main-navigation__item">
-        Watchlist <span class="main-navigation__item-count">24</span>
-      </a>
-      <a href="#history" class="main-navigation__item">
-        History <span class="main-navigation__item-count">9</span>
-      </a>
-      <a href="#favorites" class="main-navigation__item">
-        Favorites <span class="main-navigation__item-count">3</span>
-      </a>
+function createFilterItemTemplate(filter, count, isChecked) {
+  return `<a href=#"${filter}" class="main-navigation__item
+     ${isChecked ? 'main-navigation__item--active' : ''}">
+      ${FilterType[filter]}
+      ${filter === 'all' ? '' : `<span class="main-navigation__item-count">${count}</span>`}
+     </a>`;
+}
+
+function createFiltersTemplate(filterItems) {
+  const filterItemsTemplate = Object.entries(filterItems)
+    .map(([filter, count], index) => createFilterItemTemplate(filter, count, index === 0))
+    .join('');
+
+  return `<nav class="main-navigation">
+      ${filterItemsTemplate}
     </nav>
     `;
 }
 
-export default class Filters {
-  #element = null;
+export default class FiltersView extends AbstractView {
+  #filters = null;
+
+  constructor({ filters }) {
+    super();
+    this.#filters = filters;
+  }
 
   get template() {
-    return createFiltersTemplate();
-  }
-
-  get element() {
-    if (!this.#element) {
-      this.#element = createElement(this.template);
-    }
-    return this.#element;
-  }
-
-  removeElement() {
-    this.#element = null;
+    return createFiltersTemplate(this.#filters);
   }
 }

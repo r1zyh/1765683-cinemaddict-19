@@ -1,4 +1,4 @@
-import { createElement } from '../render.js';
+import AbstractView from '../framework/view/abstract-view.js';
 import { humanizePopUpDueDate } from '../util.js';
 
 function createFilmPopupTemplate(film) {
@@ -140,30 +140,18 @@ function createFilmPopupTemplate(film) {
     `;
 }
 
-export default class FilmPopup {
-  #element = null;
-
-  constructor({ film }) {
+export default class FilmPopup extends AbstractView {
+  constructor({ film, onCloseClick }) {
+    super();
     this.film = film;
+    this.element.querySelector('.film-details__close-btn').addEventListener('click', onCloseClick);
   }
 
   get template() {
     return createFilmPopupTemplate(this.film);
   }
 
-  get element() {
-    if (!this.#element) {
-      this.#element = createElement(this.template);
-    }
-
-    return this.#element;
-  }
-
   get commentsContainer() {
-    return this.#element.querySelector('.film-details__comments-list');
-  }
-
-  removeElement() {
-    this.#element = null;
+    return this.element.querySelector('.film-details__comments-list');
   }
 }

@@ -2,6 +2,13 @@ import { getRandomArrayElement } from '../util.js';
 
 const BOOLEAN = [true, false];
 
+const FilterType = {
+  all: 'All Movies',
+  watchlist: 'Watchlist',
+  history: 'History',
+  favorite: 'Favorite',
+};
+
 const POSTERS = [
   'made-for-each-other.png',
   'popeye-meets-sinbad.png',
@@ -22,4 +29,4 @@ const getUserProfile = () => ({
   userRank: SOME_RANK,
 });
 
-export { BOOLEAN, SOME_POSTER, getUserProfile };
+export { BOOLEAN, FilterType, SOME_POSTER, getUserProfile };
