@@ -23,6 +23,9 @@ export default class FilmsPresenter {
   #emptyMessage = new EmptyListMessage();
   #page = 1;
   #filtersComponent;
+  #filmPopup;
+  #filmCard;
+  #showMoreBtn;
 
   constructor({ filmModel, commentModel, filters }) {
     this.filmModel = filmModel;
@@ -54,13 +57,18 @@ export default class FilmsPresenter {
     }
 
     if (this.#filmCards.length > FILM_COUNT_PER_STEP) {
-      render(this.#showMoreBtn, this.#filmListComponent.element);
+      this.#renderShowMoreBtn();
     }
   }
 
   #renderFilters(filters) {
-    this.#filtersComponent = new Filters({filters});
+    this.#filtersComponent = new Filters({ filters });
     render(this.#filtersComponent, this.#mainContainer);
+  }
+
+  #renderShowMoreBtn() {
+    this.#showMoreBtn = new ShowMoreButton({ onClick: this.#showMoreBtnClickHandler });
+    render(this.#showMoreBtn, this.#filmListComponent.element);
   }
 
   #showMoreBtnClickHandler = () => {
@@ -82,53 +90,39 @@ export default class FilmsPresenter {
     return false;
   };
 
-  #showMoreBtn = new ShowMoreButton({ onClick: this.#showMoreBtnClickHandler });
-
   #renderFilmCard(i) {
     const comments = this.commentModel
       .getComments()
       .filter((comment) => this.#filmCards[i].comments.includes(comment.id));
 
-    const filmPopup = new FilmPopup({ film: this.#filmCards[i] });
+    this.#filmCard = new FilmCard({ film: this.#filmCards[i], onClick: this.showPopup });
+    this.#filmPopup = new FilmPopup({ film: this.#filmCards[i], onCloseClick: this.closePopup });
 
     if (Array.isArray(comments)) {
       comments.forEach((comment) => {
-        render(new FilmPopupComment({ comments: comment }), filmPopup.commentsContainer);
+        render(new FilmPopupComment({ comments: comment }), this.#filmPopup.commentsContainer);
       });
     }
 
-    const showPopup = () => {
-      document.body.appendChild(filmPopup.element);
-      document.body.classList.add('hide-overflow');
-    };
-
-    const closePopup = () => {
-      document.body.removeChild(filmPopup.element);
-      document.body.classList.remove('hide-overflow');
-    };
-
-    const escKeyDownHandler = (evt) => {
-      if (evt.key === 'Escape' || evt.key === 'Esc') {
-        evt.preventDefault();
-        closePopup();
-        document.removeEventListener('keydown', escKeyDownHandler);
-      }
-    };
-
-    const handleCard = () => {
-      showPopup();
-      document.addEventListener('keydown', escKeyDownHandler);
-    };
-
-    const filmCard = new FilmCard({ film: this.#filmCards[i], onClick: handleCard });
-
-    const handleClose = () => {
-      closePopup();
-      document.removeEventListener('keydown', escKeyDownHandler);
-    };
-
-    //filmPopup.setHandleClick(handleClose);
-
-    render(filmCard, this.#filmListContainerComponent.element);
+    render(this.#filmCard, this.#filmListContainerComponent.element);
   }
+
+  escKeyDownHandler = (evt) => {
+    if (evt.key === 'Escape' || evt.key === 'Esc') {
+      evt.preventDefault();
+      this.closePopup();
+    }
+  };
+
+  showPopup = () => {
+    document.body.appendChild(this.#filmPopup.element);
+    document.body.classList.add('hide-overflow');
+    document.addEventListener('keydown', this.escKeyDownHandler);
+  };
+
+  closePopup = () => {
+    document.body.removeChild(this.#filmPopup.element);
+    document.body.classList.remove('hide-overflow');
+    document.removeEventListener('keydown', this.escKeyDownHandler);
+  };
 }

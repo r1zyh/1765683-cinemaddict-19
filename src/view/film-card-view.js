@@ -35,7 +35,7 @@ export default class FilmCard extends AbstractView {
   constructor({ film, onClick }) {
     super();
     this.#filmInfo = film;
-    this.element.addEventListener('click', onClick);
+    this.element.querySelector('a').addEventListener('click', onClick);
   }
 
   get template() {
