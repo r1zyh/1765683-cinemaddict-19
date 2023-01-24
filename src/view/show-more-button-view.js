@@ -21,7 +21,7 @@ export default class ShowMoreButton extends AbstractView {
     evt.preventDefault();
     const isRemove = this.#handleClick();
 
-    if(isRemove) {
+    if (isRemove) {
       this.element.removeEventListener('click', this.#clickHandler);
       this.element.remove();
     }
