@@ -13,7 +13,7 @@ function getRandomInt(min, max) {
 function getTime(mins) {
   const hours = Math.trunc(mins / 60);
   const minutes = mins % 60;
-  return `${hours }h ${ minutes }m`;
+  return `${hours}h ${minutes}m`;
 }
 
 function getComments(comments) {
@@ -40,7 +40,6 @@ function humanizeCommentsDueDate(dueDate) {
   return dueDate ? dayjs(dueDate).format(COMMENT_DATE_FORMAT) : '';
 }
 
-
 function shuffle(array) {
   array.sort(() => Math.random() - 0.5);
 }
@@ -58,6 +57,13 @@ function getRandomUniqArrayElement(items) {
   return result;
 }
 
-export { getRandomInt, getRandomArrayElement, humanizeFilmDueDate, getRandomUniqArrayElement, humanizePopUpDueDate, getTime, getComments, humanizeCommentsDueDate };
-
-
+export {
+  getRandomInt,
+  getRandomArrayElement,
+  humanizeFilmDueDate,
+  getRandomUniqArrayElement,
+  humanizePopUpDueDate,
+  getTime,
+  getComments,
+  humanizeCommentsDueDate,
+};
