@@ -104,7 +104,8 @@ export default class FilmsPresenter {
     const filmPresenter = new FilmPresenter({
       commentsModel: this.commentModel,
       filmListContainer: this.#filmListContainerComponent,
-      onFilmChange: this.#handleFilmChange
+      onFilmChange: this.#handleFilmChange,
+      onModeChange: this.#handleModeChange
     });
     filmPresenter.init(film);
     this.#filmPresenter.set(film.id, filmPresenter);
@@ -113,6 +114,10 @@ export default class FilmsPresenter {
   #handleFilmChange = (updatedFilm) => {
     this.#filmCards = updateItem(this.#filmCards, updatedFilm);
     this.#filmPresenter.get(updatedFilm.id).init(updatedFilm);
+  };
+
+  #handleModeChange = () => {
+    this.#filmPresenter.forEach((presenter) => presenter.resetView());
   };
 
   #clearFilmsList() {

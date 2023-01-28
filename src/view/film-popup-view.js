@@ -2,7 +2,10 @@ import AbstractView from '../framework/view/abstract-view.js';
 import { humanizePopUpDueDate } from '../util.js';
 
 function createFilmPopupTemplate(film) {
-  const { filmInfo } = film;
+  const {
+    filmInfo,
+    userDetails: { watchlist, alreadyWatched, favorite },
+  } = film;
   const {
     description,
     ageRating,
@@ -27,6 +30,9 @@ function createFilmPopupTemplate(film) {
 
     return genresTemplate;
   }
+
+  const isWatched = !!alreadyWatched;
+  const watchedActiveClass = isWatched ? 'film-details__control-button--active' : '';
 
   return `
     <section class="film-details">
@@ -92,9 +98,9 @@ function createFilmPopupTemplate(film) {
             <button type="button" class="film-details__control-button film-details__control-button--watchlist"
               id="watchlist" name="watchlist">Add to watchlist</button>
             <button type="button"
-                class="film-details__control-button film-details__control-button--active film-details__control-button--watched"
+                class="film-details__control-button ${watchedActiveClass} film-details__control-button--watched"
               id="watched" name="watched">Already watched</button>
-            <button type="button" class="film-details__control-button film-details__control-button--favorite" id="favorite"
+            <button type="button" class="film-details__control-button  film-details__control-button--favorite" id="favorite"
               name="favorite">Add to favorites</button>
           </section>
         </div>
@@ -141,10 +147,14 @@ function createFilmPopupTemplate(film) {
 }
 
 export default class FilmPopup extends AbstractView {
-  constructor({ film, onCloseClick }) {
+  constructor({ film, onCloseClick, onWatchListClick }) {
     super();
     this.film = film;
     this.element.querySelector('.film-details__close-btn').addEventListener('click', onCloseClick);
+
+    this.element
+      .querySelector('.film-details__control-button--watched')
+      .addEventListener('click', onWatchListClick);
   }
 
   get template() {
