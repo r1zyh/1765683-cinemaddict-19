@@ -9,6 +9,7 @@ import FilmListHeader from '../view/film-list-header.js';
 import ShowMoreButton from '../view/show-more-button-view.js';
 import EmptyListMessage from '../view/empty-film-list-message.js';
 import FilmPresenter from './film-presenter.js';
+import FilmSectionPresenter from './film-section-presenter.js';
 
 const FILM_COUNT_PER_STEP = 5;
 export default class FilmsPresenter {
@@ -55,7 +56,11 @@ export default class FilmsPresenter {
   }
 
   #renderFilmSection() {
-    render(this.#filmSectionComponent, this.#mainContainer);
+    const filmSectionPresenter = new FilmSectionPresenter({
+      filmSectionComponent: this.#filmSectionComponent,
+      filmSectionContainer: this.#mainContainer,
+    });
+    filmSectionPresenter.init();
   }
 
   #renderFilmList() {
