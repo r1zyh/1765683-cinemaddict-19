@@ -57,6 +57,10 @@ function getRandomUniqArrayElement(items) {
   return result;
 }
 
+function updateItem(items, update) {
+  return items.map((item) => item.id === update.id ? update : item);
+}
+
 export {
   getRandomInt,
   getRandomArrayElement,
@@ -66,4 +70,5 @@ export {
   getTime,
   getComments,
   humanizeCommentsDueDate,
+  updateItem
 };

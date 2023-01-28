@@ -6,9 +6,7 @@ import {
 } from '../util.js';
 import { SOME_POSTER, BOOLEAN } from './const.js';
 import { mockComments } from './comment.js';
-
-const FILM_ID_MAX = 20;
-const FILM_ID_MIN = 1;
+import { nanoid } from 'nanoid';
 
 const MIN_COMMENTS_COUNT = 0;
 const MAX_COMMENTS_COUNT = 100;
@@ -85,7 +83,7 @@ const WATCHING_DATES = [
 ];
 
 const createFilm = () => ({
-  id: getRandomInt(FILM_ID_MIN, FILM_ID_MAX),
+  id: nanoid(),
   comments: [mockComments[1].id, mockComments[3].id, mockComments[0].id, mockComments[2].id],
   filmInfo: {
     title: getRandomArrayElement(TITLES),
