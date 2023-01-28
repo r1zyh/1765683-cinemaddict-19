@@ -8,8 +8,6 @@ import Filters from '../view/filters-view.js';
 import FilmListHeader from '../view/film-list-header.js';
 import ShowMoreButton from '../view/show-more-button-view.js';
 import EmptyListMessage from '../view/empty-film-list-message.js';
-
-import ShowMoreButtonPresenter from './show-more-btn-presenter.js';
 import FilmPresenter from './film-presenter.js';
 
 const FILM_COUNT_PER_STEP = 5;
@@ -20,14 +18,12 @@ export default class FilmsPresenter {
   #filmListComponent = new FilmList();
   #sortComponent = new Sort();
   #filmListHeaderComponent = new FilmListHeader();
-  #filmCards;
+  #filmCards = null;
   #emptyMessage = new EmptyListMessage();
   #filtersComponent;
   #filmPresenter = new Map();
-  #page = null;
+  #page = 1;
   #showMoreBtn;
-
-  #showMoreButtonPresenter = null;
 
   constructor({ filmModel, commentModel, filters }) {
     this.filmModel = filmModel;
@@ -40,9 +36,8 @@ export default class FilmsPresenter {
 
     this.#renderFilters(this.filters);
     this.#renderSort();
-    render(this.#filmSectionComponent, this.#mainContainer);
+    this.#renderFilmSection();
     this.#renderFilmList();
-    this.#renderShowMoreBtn();
 
     if (this.#filmCards.length === 0) {
       render(this.#emptyMessage, this.#filmListContainerComponent.element);
@@ -51,18 +46,16 @@ export default class FilmsPresenter {
     }
 
     if (this.#filmCards.length > FILM_COUNT_PER_STEP) {
-      this.#showMoreButtonPresenter = new ShowMoreButtonPresenter({
-        films: this.#filmCards,
-        filmListComponent: this.#filmListComponent,
-        renderFilmCard: this.#renderFilm(),
-      });
-
-      this.#showMoreButtonPresenter.init();
+      this.#renderShowMoreBtn();
     }
   }
 
   #renderSort() {
     render(this.#sortComponent, this.#mainContainer);
+  }
+
+  #renderFilmSection() {
+    render(this.#filmSectionComponent, this.#mainContainer);
   }
 
   #renderFilmList() {
@@ -105,7 +98,7 @@ export default class FilmsPresenter {
       commentsModel: this.commentModel,
       filmListContainer: this.#filmListContainerComponent,
       onFilmChange: this.#handleFilmChange,
-      onModeChange: this.#handleModeChange
+      onModeChange: this.#handleModeChange,
     });
     filmPresenter.init(film);
     this.#filmPresenter.set(film.id, filmPresenter);
