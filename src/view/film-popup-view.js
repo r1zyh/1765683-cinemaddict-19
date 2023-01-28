@@ -31,8 +31,14 @@ function createFilmPopupTemplate(film) {
     return genresTemplate;
   }
 
+  const isFavorite = !!favorite;
+  const favoriteActiveClass = isFavorite ? 'film-details__control-button--active' : '';
+
   const isWatched = !!alreadyWatched;
-  const watchedActiveClass = isWatched ? 'film-details__control-button--active' : '';
+  const watchedActiveClass = isWatched ? 'film-card__controls-item--active' : '';
+
+  const isWatchList = !!watchlist;
+  const watchListActiveClass = isWatchList ? 'film-details__control-button--active' : '';
 
   return `
     <section class="film-details">
@@ -95,12 +101,12 @@ function createFilmPopupTemplate(film) {
             </div>
           </div>
           <section class="film-details__controls">
-            <button type="button" class="film-details__control-button film-details__control-button--watchlist"
+            <button type="button" class="film-details__control-button ${watchListActiveClass} film-details__control-button--watchlist"
               id="watchlist" name="watchlist">Add to watchlist</button>
             <button type="button"
                 class="film-details__control-button ${watchedActiveClass} film-details__control-button--watched"
               id="watched" name="watched">Already watched</button>
-            <button type="button" class="film-details__control-button  film-details__control-button--favorite" id="favorite"
+            <button type="button" class="film-details__control-button ${favoriteActiveClass} film-details__control-button--favorite" id="favorite"
               name="favorite">Add to favorites</button>
           </section>
         </div>
@@ -147,14 +153,24 @@ function createFilmPopupTemplate(film) {
 }
 
 export default class FilmPopup extends AbstractView {
-  constructor({ film, onCloseClick, onWatchListClick }) {
+  onWatchListClick = null;
+
+  constructor({ film, onCloseClick, onFavoriteClick, onWatchedClick, onWatchListClick }) {
     super();
     this.film = film;
     this.element.querySelector('.film-details__close-btn').addEventListener('click', onCloseClick);
 
     this.element
-      .querySelector('.film-details__control-button--watched')
+      .querySelector('.film-details__control-button--watchlist')
       .addEventListener('click', onWatchListClick);
+
+    this.element
+      .querySelector('.film-details__control-button--watched')
+      .addEventListener('click', onWatchedClick);
+
+    this.element
+      .querySelector('.film-details__control-button--favorite')
+      .addEventListener('click', onFavoriteClick);
   }
 
   get template() {
