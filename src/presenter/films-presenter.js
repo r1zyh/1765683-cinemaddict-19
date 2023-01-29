@@ -52,7 +52,6 @@ export default class FilmsPresenter {
 
     if (this.#filmCards.length > FILM_COUNT_PER_STEP) {
       this.#renderShowMoreBtn();
-
     }
   }
 
@@ -64,8 +63,7 @@ export default class FilmsPresenter {
   }
 
   #sortFilmCards = (sortMode) => {
-
-    switch(sortMode) {
+    switch (sortMode) {
       case SortMode.BY_DATE:
         this.#filmCards.sort(sortDate);
         break;
@@ -82,9 +80,8 @@ export default class FilmsPresenter {
     this.#currentSortType = sortMode;
   };
 
-
   #handleSortTypeChange = (sortMode) => {
-    if(this.#currentSortType === sortMode) {
+    if (this.#currentSortType === sortMode) {
       return;
     }
 
@@ -92,7 +89,6 @@ export default class FilmsPresenter {
     this.#clearFilmsList();
     this.#renderFilmList();
     this.#renderShowMoreBtn();
-
   };
 
   #renderFilmSection() {

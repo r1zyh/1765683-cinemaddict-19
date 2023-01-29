@@ -15,7 +15,7 @@ function createFilmCardTemplate(film) {
   const isWatched = !!alreadyWatched;
   const watchedActiveClass = isWatched ? 'film-card__controls-item--active' : '';
 
-  const isWatchList = !! watchlist;
+  const isWatchList = !!watchlist;
   const watchListActiveClass = isWatchList ? 'film-card__controls-item--active' : '';
 
   return `
