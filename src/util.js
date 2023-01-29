@@ -61,6 +61,10 @@ function updateItem(items, update) {
   return items.map((item) => item.id === update.id ? update : item);
 }
 
+const sortRating = (filmA, filmB) => filmA.filmInfo.totalRating > filmB.filmInfo.totalRating ? -1 : 1;
+
+const sortDate = (filmA, filmB) => filmA.filmInfo.release.date > filmB.filmInfo.release.date ? -1 : 1;
+
 export {
   getRandomInt,
   getRandomArrayElement,
@@ -70,5 +74,7 @@ export {
   getTime,
   getComments,
   humanizeCommentsDueDate,
-  updateItem
+  updateItem,
+  sortRating,
+  sortDate
 };

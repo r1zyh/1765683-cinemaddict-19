@@ -35,7 +35,7 @@ function createFilmPopupTemplate(film) {
   const favoriteActiveClass = isFavorite ? 'film-details__control-button--active' : '';
 
   const isWatched = !!alreadyWatched;
-  const watchedActiveClass = isWatched ? 'film-card__controls-item--active' : '';
+  const watchedActiveClass = isWatched ? 'film-details__control-button--active' : '';
 
   const isWatchList = !!watchlist;
   const watchListActiveClass = isWatchList ? 'film-details__control-button--active' : '';

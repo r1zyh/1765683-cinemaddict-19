@@ -9,6 +9,13 @@ const FilterType = {
   favorite: 'Favorite',
 };
 
+const SortMode = {
+  DEFAULT: 'default',
+  BY_DATE: 'by-date',
+  BY_RATING: 'by-rating',
+};
+
+
 const POSTERS = [
   'made-for-each-other.png',
   'popeye-meets-sinbad.png',
@@ -29,4 +36,4 @@ const getUserProfile = () => ({
   userRank: SOME_RANK,
 });
 
-export { BOOLEAN, FilterType, SOME_POSTER, getUserProfile };
+export { BOOLEAN, FilterType, SOME_POSTER, getUserProfile, SortMode };
