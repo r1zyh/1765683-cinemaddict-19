@@ -1,4 +1,4 @@
-import AbstractView from '../framework/view/abstract-view.js';
+import AbstractStatefulView from '../framework/view/abstract-view.js';
 import { humanizePopUpDueDate } from '../util.js';
 
 function createFilmPopupTemplate(film) {
@@ -152,29 +152,37 @@ function createFilmPopupTemplate(film) {
     `;
 }
 
-export default class FilmPopup extends AbstractView {
+export default class FilmPopup extends AbstractStatefulView {
   onWatchListClick = null;
 
   constructor({ film, onCloseClick, onFavoriteClick, onWatchedClick, onWatchListClick }) {
     super();
     this.film = film;
-    this.element.querySelector('.film-details__close-btn').addEventListener('click', onCloseClick);
-
-    this.element
-      .querySelector('.film-details__control-button--watchlist')
-      .addEventListener('click', onWatchListClick);
-
-    this.element
-      .querySelector('.film-details__control-button--watched')
-      .addEventListener('click', onWatchedClick);
-
-    this.element
-      .querySelector('.film-details__control-button--favorite')
-      .addEventListener('click', onFavoriteClick);
+    this.onCloseClick = onCloseClick;
+    this.onFavoriteClick = onFavoriteClick;
+    this.onWatchedClick = onWatchedClick;
+    this.onWatchListClick = onWatchListClick;
+    this._restoreHandlers();
   }
 
   get template() {
     return createFilmPopupTemplate(this.film);
+  }
+
+  _restoreHandlers() {
+    this.element.querySelector('.film-details__close-btn').addEventListener('click', this.onCloseClick);
+
+    this.element
+      .querySelector('.film-details__control-button--watchlist')
+      .addEventListener('click', this.onWatchListClick);
+
+    this.element
+      .querySelector('.film-details__control-button--watched')
+      .addEventListener('click', this.onWatchedClick);
+
+    this.element
+      .querySelector('.film-details__control-button--favorite')
+      .addEventListener('click', this.onFavoriteClick);
   }
 
   get commentsContainer() {
