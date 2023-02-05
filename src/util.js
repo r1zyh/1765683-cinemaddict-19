@@ -1,4 +1,7 @@
 import dayjs from 'dayjs';
+import require from 'dayjs';
+const relativeTime = require('dayjs/plugin/relativeTime');
+dayjs.extend(relativeTime);
 
 const POPUP_DATE_FORMAT = 'D MMMM YYYY';
 const FILM_DATE_FORMAT = 'YYYY';
@@ -37,7 +40,14 @@ function humanizePopUpDueDate(dueDate) {
 }
 
 function humanizeCommentsDueDate(dueDate) {
-  return dueDate ? dayjs(dueDate).format(COMMENT_DATE_FORMAT) : '';
+  const date1 = dayjs();
+  const date2 = dayjs(dueDate);
+
+  if (date1.diff(date2, 'week')) {
+    return dayjs(dueDate).format(COMMENT_DATE_FORMAT);
+  } else {
+    return dayjs(dueDate).fromNow();
+  }
 }
 
 function shuffle(array) {
@@ -58,12 +68,14 @@ function getRandomUniqArrayElement(items) {
 }
 
 function updateItem(items, update) {
-  return items.map((item) => item.id === update.id ? update : item);
+  return items.map((item) => (item.id === update.id ? update : item));
 }
 
-const sortRating = (filmA, filmB) => filmA.filmInfo.totalRating > filmB.filmInfo.totalRating ? -1 : 1;
+const sortRating = (filmA, filmB) =>
+  filmA.filmInfo.totalRating > filmB.filmInfo.totalRating ? -1 : 1;
 
-const sortDate = (filmA, filmB) => filmA.filmInfo.release.date > filmB.filmInfo.release.date ? -1 : 1;
+const sortDate = (filmA, filmB) =>
+  filmA.filmInfo.release.date > filmB.filmInfo.release.date ? -1 : 1;
 
 export {
   getRandomInt,
@@ -76,5 +88,5 @@ export {
   humanizeCommentsDueDate,
   updateItem,
   sortRating,
-  sortDate
+  sortDate,
 };
