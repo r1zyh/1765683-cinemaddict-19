@@ -43,11 +43,10 @@ function humanizeCommentsDueDate(dueDate) {
   const date1 = dayjs();
   const date2 = dayjs(dueDate);
 
-  if (date1.diff(date2, 'week')) {
-    return dayjs(dueDate).format(COMMENT_DATE_FORMAT);
-  } else {
-    return dayjs(dueDate).fromNow();
-  }
+  return date1.diff(date2, 'week')
+    ? dayjs(dueDate).format(COMMENT_DATE_FORMAT)
+    : dayjs(dueDate).fromNow();
+
 }
 
 function shuffle(array) {

@@ -49,16 +49,15 @@ export default class FilmPresenter {
     this.#filmPopupComponent = new FilmPopup({
       film: {
         ...this.#film,
-        comments: this.#comments
+        comments: this.#comments,
       },
       onCloseClick: this.#closePopup,
       scrollPosition: this.#popupScrollTop,
       onWatchListClick: this.#handleWatchListClick,
       onWatchedClick: this.#handleWatchedClick,
       onFavoriteClick: this.#handleFavoriteClick,
-      onScroll: this.#popupScrollPosHandler
+      onScroll: this.#popupScrollPosHandler,
     });
-
 
     if (prevFilmCardComponent === null || prevFilmPopupComponent === null) {
       render(this.#filmCardComponent, this.#filmListContainer.element);
@@ -71,6 +70,7 @@ export default class FilmPresenter {
 
     if (this.#mode === Mode.OPEN) {
       replace(this.#filmPopupComponent, prevFilmPopupComponent);
+      this.#filmPopupComponent.restoreScroll();
     }
 
     remove(prevFilmCardComponent);

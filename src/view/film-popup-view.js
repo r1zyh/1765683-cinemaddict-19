@@ -191,8 +191,6 @@ export default class FilmPopup extends AbstractStatefulView {
     this.onScroll = onScroll;
 
     this._state = FilmPopup.parseFilmToState(this.film);
-
-    this.#restoreScroll(scrollPosition);
     this._restoreHandlers();
   }
 
@@ -210,7 +208,7 @@ export default class FilmPopup extends AbstractStatefulView {
     return createFilmPopupTemplate(this._state);
   }
 
-  #restoreScroll() {
+  restoreScroll() {
     this.element.scrollTop = this.scrollPosition;
   }
 
