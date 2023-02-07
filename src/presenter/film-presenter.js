@@ -145,5 +145,6 @@ export default class FilmPresenter {
 
   #popupScrollPosHandler = (offset) => {
     this.#popupScrollTop = offset;
+    this.#filmPopupComponent.updateScrollPosition(offset);
   };
 }
