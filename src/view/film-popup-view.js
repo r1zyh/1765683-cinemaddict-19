@@ -212,6 +212,15 @@ export default class FilmPopup extends AbstractStatefulView {
     this.element.scrollTop = this.scrollPosition;
   }
 
+  updateScrollPosition(offset) {
+    this.scrollPosition = offset;
+  }
+
+  updateElement(update) {
+    super.updateElement(update);
+    this.restoreScroll();
+  }
+
   _restoreHandlers() {
     this.element.addEventListener('scroll', ({ currentTarget }) =>
       this.onScroll(currentTarget.scrollTop)
