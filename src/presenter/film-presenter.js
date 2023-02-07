@@ -1,7 +1,6 @@
 import FilmCard from '../view/film-card-view';
 import FilmPopup from '../view/film-popup-view';
 import { render, remove, replace } from '../framework/render';
-import FilmPopupComment from '../view/film-comment-view';
 
 const Mode = {
   DEFAULT: 'DEFAULT',
@@ -20,6 +19,7 @@ export default class FilmPresenter {
   #handleFilmChange = null;
   #mode = Mode.DEFAULT;
   #handleModeChange = null;
+  #popupScrollTop = null;
 
   constructor({ commentsModel, filmListContainer, onFilmChange, onModeChange }) {
     this.#filmListContainer = filmListContainer;
@@ -47,21 +47,17 @@ export default class FilmPresenter {
     });
 
     this.#filmPopupComponent = new FilmPopup({
-      film: this.#film,
+      film: {
+        ...this.#film,
+        comments: this.#comments,
+      },
       onCloseClick: this.#closePopup,
+      scrollPosition: this.#popupScrollTop,
       onWatchListClick: this.#handleWatchListClick,
       onWatchedClick: this.#handleWatchedClick,
       onFavoriteClick: this.#handleFavoriteClick,
+      onScroll: this.#popupScrollPosHandler,
     });
-
-    if (Array.isArray(this.#comments)) {
-      this.#comments.forEach((comment) => {
-        render(
-          new FilmPopupComment({ comments: comment }),
-          this.#filmPopupComponent.commentsContainer
-        );
-      });
-    }
 
     if (prevFilmCardComponent === null || prevFilmPopupComponent === null) {
       render(this.#filmCardComponent, this.#filmListContainer.element);
@@ -74,6 +70,7 @@ export default class FilmPresenter {
 
     if (this.#mode === Mode.OPEN) {
       replace(this.#filmPopupComponent, prevFilmPopupComponent);
+      this.#filmPopupComponent.restoreScroll();
     }
 
     remove(prevFilmCardComponent);
@@ -145,4 +142,8 @@ export default class FilmPresenter {
       this.#closePopup();
     }
   }
+
+  #popupScrollPosHandler = (offset) => {
+    this.#popupScrollTop = offset;
+  };
 }
