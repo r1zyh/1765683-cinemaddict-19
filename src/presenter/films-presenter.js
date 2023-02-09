@@ -108,7 +108,7 @@ export default class FilmsPresenter {
     }
 
     this.#currentSortType = sortType;
-    this.#clearFilmsList({resetRenderedFilmCount: true});
+    this.#clearFilmsList({ resetRenderedFilmCount: true });
     this.#renderShowMoreBtn();
     this.#renderPage();
   };
@@ -209,10 +209,19 @@ export default class FilmsPresenter {
   }
 
   #renderPage() {
+    const films = this.films;
+    const filmCount = films.length;
+
     this.#renderFilters(this.filters);
     this.#renderSort();
     this.#renderFilmSection();
     this.#renderFilmList();
     this.#renderEmptyListMessage();
+
+    this.#renderFilm(films.slice(0, Math.min(filmCount, this.#renderedFilmCount)));
+
+    if (filmCount > this.#renderedFilmCount) {
+      this.#renderShowMoreBtn();
+    }
   }
 }
