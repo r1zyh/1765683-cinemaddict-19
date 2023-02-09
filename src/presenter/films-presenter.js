@@ -1,5 +1,5 @@
 import { render, remove } from '../framework/render.js';
-import { sortDate, sortRating, updateItem } from '../util.js';
+import { sortDate, sortRating } from '../util.js';
 import FilmSection from '../view/film-section-view.js';
 import FilmListContainer from '../view/film-list-container-view.js';
 import FilmList from '../view/film-list-view.js';
@@ -32,6 +32,8 @@ export default class FilmsPresenter {
     this.filmModel = filmModel;
     this.commentModel = commentModel;
     this.filters = filters;
+
+    this.filmModel.addObserver(this.#handleModelEvent);
   }
 
   get films() {
@@ -55,6 +57,23 @@ export default class FilmsPresenter {
     this.#renderFilmList();
     this.#renderEmptyListMessage();
   }
+
+  #handleViewAction = (actionType, updateType, update) => {
+    console.log(actionType, updateType, update);
+    // Здесь будем вызывать обновление модели.
+    // actionType - действие пользователя, нужно чтобы понять, какой метод модели вызвать
+    // updateType - тип изменений, нужно чтобы понять, что после нужно обновить
+    // update - обновленные данные
+  };
+
+  #handleModelEvent = (updateType, data) => {
+    console.log(updateType, data);
+    // В зависимости от типа изменений решаем, что делать:
+    // - обновить часть списка (например, когда поменялось описание)
+    // - обновить список (например, когда задача ушла в архив)
+    // - обновить всю доску (например, при переключении фильтра)
+  };
+
 
   #renderSort() {
     this.#sortComponent = new Sort({
@@ -137,16 +156,18 @@ export default class FilmsPresenter {
     const filmPresenter = new FilmPresenter({
       commentsModel: this.commentModel,
       filmListContainer: this.#filmListContainerComponent,
-      onFilmChange: this.#handleFilmChange,
+      onFilmChange: this.#handleViewAction,
       onModeChange: this.#handleModeChange,
     });
     filmPresenter.init(film);
     this.#filmPresenter.set(film.id, filmPresenter);
   };
 
+  /*
   #handleFilmChange = (updatedFilm) => {
     this.#filmPresenter.get(updatedFilm.id).init(updatedFilm);
   };
+*/
 
   #handleModeChange = () => {
     this.#filmPresenter.forEach((presenter) => presenter.resetView());

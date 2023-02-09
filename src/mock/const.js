@@ -3,9 +3,9 @@ import { getRandomArrayElement } from '../util.js';
 const BOOLEAN = [true, false];
 
 const UserAction = {
-  UPDATE_TASK: 'UPDATE_TASK',
-  ADD_TASK: 'ADD_TASK',
-  DELETE_TASK: 'DELETE_TASK',
+  UPDATE_FILM: 'UPDATE_FILM',
+  ADD_FILM: 'ADD_FILM',
+  DELETE_FILM: 'DELETE_FILM',
 };
 
 const UpdateType = {
