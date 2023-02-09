@@ -2,6 +2,19 @@ import { getRandomArrayElement } from '../util.js';
 
 const BOOLEAN = [true, false];
 
+const UserAction = {
+  UPDATE_TASK: 'UPDATE_TASK',
+  ADD_TASK: 'ADD_TASK',
+  DELETE_TASK: 'DELETE_TASK',
+};
+
+const UpdateType = {
+  PATCH: 'PATCH',
+  MINOR: 'MINOR',
+  MAJOR: 'MAJOR',
+};
+
+
 const FilterType = {
   all: 'All Movies',
   watchlist: 'Watchlist',
@@ -36,4 +49,4 @@ const getUserProfile = () => ({
   userRank: SOME_RANK,
 });
 
-export { BOOLEAN, FilterType, SOME_POSTER, getUserProfile, SortMode };
+export { BOOLEAN, FilterType, SOME_POSTER, getUserProfile, SortMode, UserAction, UpdateType };
