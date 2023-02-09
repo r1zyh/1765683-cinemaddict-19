@@ -249,7 +249,4 @@ export default class FilmPopup extends AbstractStatefulView {
     });
   }
 
-  get commentsContainer() {
-    return this.element.querySelector('.film-details__comments-list');
-  }
 }
