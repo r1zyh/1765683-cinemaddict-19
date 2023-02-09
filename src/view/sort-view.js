@@ -1,12 +1,12 @@
 import AbstractView from '../framework/view/abstract-view.js';
-import { SortMode } from '../mock/const.js';
+import { SortType } from '../mock/const.js';
 
 function createFilmSortTemplate(currentSortType) {
   return `
     <ul class="sort">
-      <li><a href="#" class="sort__button  ${currentSortType === SortMode.DEFAULT ? 'sort__button--active' : ''}"  data-sort-type="${SortMode.DEFAULT}" >Sort by default</a></li>
-      <li><a href="#" class="sort__button ${currentSortType === SortMode.BY_DATE ? 'sort__button--active' : ''}" data-sort-type="${SortMode.BY_DATE}">Sort by date</a></li>
-      <li><a href="#" class="sort__button ${currentSortType === SortMode.BY_RATING ? 'sort__button--active' : ''}" data-sort-type="${SortMode.BY_RATING}">Sort by rating</a></li>
+      <li><a href="#" class="sort__button  ${currentSortType === SortType.DEFAULT ? 'sort__button--active' : ''}"  data-sort-type="${SortType.DEFAULT}" >Sort by default</a></li>
+      <li><a href="#" class="sort__button ${currentSortType === SortType.BY_DATE ? 'sort__button--active' : ''}" data-sort-type="${SortType.BY_DATE}">Sort by date</a></li>
+      <li><a href="#" class="sort__button ${currentSortType === SortType.BY_RATING ? 'sort__button--active' : ''}" data-sort-type="${SortType.BY_RATING}">Sort by rating</a></li>
     </ul>
   `;
 }

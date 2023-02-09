@@ -1,7 +1,7 @@
 import FilmCard from '../view/film-card-view';
 import FilmPopup from '../view/film-popup-view';
 import { render, remove, replace } from '../framework/render';
-import { UserAction, UpdateType } from '../const.js';
+import { UserAction, UpdateType } from '../mock/const';
 
 const Mode = {
   DEFAULT: 'DEFAULT',
