@@ -10,7 +10,7 @@ import ShowMoreButton from '../view/show-more-button-view.js';
 import EmptyListMessage from '../view/empty-film-list-message.js';
 import FilmPresenter from './film-presenter.js';
 import FilmSectionPresenter from './film-section-presenter.js';
-import { SortMode, UpdateType, UserAction } from '../mock/const.js';
+import { SortType, UpdateType, UserAction } from '../mock/const.js';
 
 const FILM_COUNT_PER_STEP = 5;
 export default class FilmsPresenter {
@@ -24,7 +24,7 @@ export default class FilmsPresenter {
   #filtersComponent;
   #filmPresenter = new Map();
   #showMoreBtn;
-  #currentSortType = SortMode.DEFAULT;
+  #currentSortType = SortType.DEFAULT;
   #sourcedFilms = [];
   #renderedFilmCount = FILM_COUNT_PER_STEP;
 
@@ -38,24 +38,20 @@ export default class FilmsPresenter {
 
   get films() {
     switch (this.#currentSortType) {
-      case SortMode.BY_DATE:
+      case SortType.BY_DATE:
         return [...this.filmModel.films].sort(sortDate);
 
-      case SortMode.BY_RATING:
+      case SortType.BY_RATING:
         return [...this.filmModel.films].sort(sortRating);
 
-      case SortMode.DEFAULT:
+      case SortType.DEFAULT:
         return ([...this.filmModel.films] = [...this.#sourcedFilms]);
     }
     return this.filmModel.films;
   }
 
   init() {
-    this.#renderFilters(this.filters);
-    this.#renderSort();
-    this.#renderFilmSection();
-    this.#renderFilmList();
-    this.#renderEmptyListMessage();
+    this.#renderPage();
   }
 
   #handleViewAction = (actionType, updateType, update) => {
@@ -79,17 +75,21 @@ export default class FilmsPresenter {
         this.#filmPresenter.get(data.id).init(data);
         break;
       case UpdateType.MINOR:
+        this.#clearFilmsList();
+        this.#renderPage();
         // - обновить список (например, когда задача ушла в архив)
         break;
       case UpdateType.MAJOR:
         // - обновить всю доску (например, при переключении фильтра)
+        this.#clearFilmsList();
+        this.#renderPage();
         break;
     }
   };
 
-
   #renderSort() {
     this.#sortComponent = new Sort({
+      currentSortType: this.#currentSortType,
       onSortTypeChange: this.#handleSortTypeChange,
     });
     render(this.#sortComponent, this.#mainContainer);
@@ -99,19 +99,18 @@ export default class FilmsPresenter {
     const filmCount = this.films.length;
     if (filmCount === 0) {
       render(this.#emptyMessage, this.#filmListContainerComponent.element);
-
     }
   }
 
-  #handleSortTypeChange = (sortMode) => {
-    if (this.#currentSortType === sortMode) {
+  #handleSortTypeChange = (sortType) => {
+    if (this.#currentSortType === sortType) {
       return;
     }
 
-    this.#currentSortType = sortMode;
-    this.#clearFilmsList();
-    this.#renderFilmList();
+    this.#currentSortType = sortType;
+    this.#clearFilmsList({resetRenderedFilmCount: true});
     this.#renderShowMoreBtn();
+    this.#renderPage();
   };
 
   #renderFilmSection() {
@@ -162,7 +161,6 @@ export default class FilmsPresenter {
     if (this.#renderedFilmCount >= filmCount) {
       remove(this.#showMoreBtn);
     }
-
   };
 
   #renderFilm = (film) => {
@@ -186,10 +184,35 @@ export default class FilmsPresenter {
     this.#filmPresenter.forEach((presenter) => presenter.resetView());
   };
 
-  #clearFilmsList() {
+  #clearFilmsList({ resetRenderedFilmCount = false, resetSortType = false } = {}) {
+    const filmCount = this.films.length;
+
     this.#filmPresenter.forEach((presenter) => presenter.destroy());
     this.#filmPresenter.clear();
 
+    remove(this.#sortComponent);
+    remove(this.#emptyMessage);
     remove(this.#showMoreBtn);
+
+    if (resetRenderedFilmCount) {
+      this.#renderedFilmCount = FILM_COUNT_PER_STEP;
+    } else {
+      // На случай, если перерисовка доски вызвана
+      // уменьшением количества задач (например, удаление или перенос в архив)
+      // нужно скорректировать число показанных задач
+      this.#renderedFilmCount = Math.min(filmCount, this.#renderedFilmCount);
+    }
+
+    if (resetSortType) {
+      this.#currentSortType = SortType.DEFAULT;
+    }
+  }
+
+  #renderPage() {
+    this.#renderFilters(this.filters);
+    this.#renderSort();
+    this.#renderFilmSection();
+    this.#renderFilmList();
+    this.#renderEmptyListMessage();
   }
 }

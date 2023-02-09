@@ -22,7 +22,7 @@ const FilterType = {
   favorite: 'Favorite',
 };
 
-const SortMode = {
+const SortType = {
   DEFAULT: 'default',
   BY_DATE: 'by-date',
   BY_RATING: 'by-rating',
@@ -49,4 +49,4 @@ const getUserProfile = () => ({
   userRank: SOME_RANK,
 });
 
-export { BOOLEAN, FilterType, SOME_POSTER, getUserProfile, SortMode, UserAction, UpdateType };
+export { BOOLEAN, FilterType, SOME_POSTER, getUserProfile, SortType, UserAction, UpdateType };
