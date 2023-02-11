@@ -232,15 +232,15 @@ export default class FilmPopup extends AbstractStatefulView {
 
     this.element
       .querySelector('.film-details__control-button--watchlist')
-      .addEventListener('click', this.onWatchListClick);
+      .addEventListener('click', this.#handleWatchClick);
 
     this.element
       .querySelector('.film-details__control-button--watched')
-      .addEventListener('click', this.onWatchedClick);
+      .addEventListener('click', this.#handleWatchedClick);
 
     this.element
       .querySelector('.film-details__control-button--favorite')
-      .addEventListener('click', this.onFavoriteClick);
+      .addEventListener('click', this. #handleFavoriteClick);
 
     this.element.querySelectorAll('.film-details__emoji-item').forEach((element) => {
       element.addEventListener('change', ({ currentTarget }) => {
@@ -248,5 +248,29 @@ export default class FilmPopup extends AbstractStatefulView {
       });
     });
   }
+
+  #handleWatchClick = (evt) => {
+    evt.preventDefault();
+    this.updateElement({isWatchList: !this._state.isWatchList});
+
+    this.onWatchListClick();
+
+  };
+
+  #handleWatchedClick = (evt) => {
+    evt.preventDefault();
+    this.updateElement({isWatched: !this._state.isWatched});
+
+    this.onWatchedClick();
+
+  };
+
+  #handleFavoriteClick = (evt) => {
+    evt.preventDefault();
+    this.updateElement({isFavorite: !this._state.isFavorite});
+
+    this.onFavoriteClick();
+
+  };
 
 }

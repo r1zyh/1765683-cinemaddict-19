@@ -80,7 +80,6 @@ export default class FilmPresenter {
 
   destroy() {
     remove(this.#filmCardComponent);
-    remove(this.#filmPopupComponent);
   }
 
   #escKeyDownHandler = (evt) => {

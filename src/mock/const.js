@@ -2,6 +2,14 @@ import { getRandomArrayElement } from '../util.js';
 
 const FILM_COUNT_PER_STEP = 5;
 
+const filters = [
+  {
+    type: 'all',
+    name: 'ALL',
+    count: 0,
+  },
+];
+
 const BOOLEAN = [true, false];
 
 const UserAction = {
@@ -18,10 +26,10 @@ const UpdateType = {
 
 
 const FilterType = {
-  all: 'All Movies',
-  watchlist: 'Watchlist',
-  history: 'History',
-  favorite: 'Favorite',
+  ALL: 'All Movies',
+  WATCHLIST: 'Watchlist',
+  HISTORY: 'History',
+  FAVORITE: 'Favorite',
 };
 
 const SortType = {
@@ -51,4 +59,4 @@ const getUserProfile = () => ({
   userRank: SOME_RANK,
 });
 
-export { FILM_COUNT_PER_STEP, BOOLEAN, FilterType, SOME_POSTER, getUserProfile, SortType, UserAction, UpdateType };
+export { FILM_COUNT_PER_STEP, BOOLEAN, FilterType, SOME_POSTER, getUserProfile, SortType, UserAction, UpdateType, filters };
