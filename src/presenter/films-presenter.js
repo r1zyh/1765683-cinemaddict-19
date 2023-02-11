@@ -34,21 +34,28 @@ export default class FilmsPresenter {
 
     this.filmModel.addObserver(this.#handleModelEvent);
     this.commentModel.addObserver(this.#handleModelEvent);
+    this.filterModel.addObserver(this.#handleModelEvent);
   }
 
   get films() {
+
+    const filterType = this.filterModel.filter;
+    const films = this.filmModel.films;
+    const filteredFilms = filter[filterType](films);
+
     switch (this.#currentSortType) {
       case SortType.BY_DATE:
-        return [...this.filmModel.films].sort(sortDate);
+        return filteredFilms.sort(sortDate);
 
       case SortType.BY_RATING:
-        return [...this.filmModel.films].sort(sortRating);
+        return filteredFilms.sort(sortRating);
     }
     return this.filmModel.films;
+
   }
 
   init() {
-    this.#renderFilters(this.filterModel.filter);
+    //this.#renderFilters();
     this.#renderPage();
   }
 
@@ -92,7 +99,6 @@ export default class FilmsPresenter {
     render(this.#sortComponent, this.#mainContainer);
   }
 
-
   #handleSortTypeChange = (sortType) => {
     if (this.#currentSortType === sortType) {
       return;
@@ -111,16 +117,15 @@ export default class FilmsPresenter {
     filmSectionPresenter.init();
   }
 
-
   #renderFilms(films) {
     films.forEach((film) => this.#renderFilm(film));
   }
-
+  /*
   #renderFilters() {
-    console.log(filter)
     this.#filtersComponent = new Filters({ filter, currentFilterType: 'all', onFilterTypeChange: () => {} });
     render(this.#filtersComponent, this.#mainContainer);
   }
+  */
 
   #renderShowMoreBtn() {
     this.#showMoreBtn = new ShowMoreButton({ onClick: this.#showMoreBtnClickHandler });
