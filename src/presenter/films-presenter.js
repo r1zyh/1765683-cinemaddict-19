@@ -11,7 +11,7 @@ import EmptyListMessage from '../view/empty-film-list-message.js';
 import FilmPresenter from './film-presenter.js';
 import FilmSectionPresenter from './film-section-presenter.js';
 import { SortType, UpdateType, UserAction } from '../mock/const.js';
-import { FILM_COUNT_PER_STEP, filters } from '../mock/const.js';
+import { FILM_COUNT_PER_STEP, filter } from '../mock/const.js';
 
 export default class FilmsPresenter {
   #mainContainer = document.querySelector('.main');
@@ -48,7 +48,7 @@ export default class FilmsPresenter {
   }
 
   init() {
-    this.#renderFilters(this.filters);
+    this.#renderFilters(this.filterModel.filter);
     this.#renderPage();
   }
 
@@ -117,8 +117,8 @@ export default class FilmsPresenter {
   }
 
   #renderFilters() {
-    console.log(filters)
-    this.#filtersComponent = new Filters({ filters, currentFilterType: 'all', onFilterTypeChange: () => {} });
+    console.log(filter)
+    this.#filtersComponent = new Filters({ filter, currentFilterType: 'all', onFilterTypeChange: () => {} });
     render(this.#filtersComponent, this.#mainContainer);
   }
 

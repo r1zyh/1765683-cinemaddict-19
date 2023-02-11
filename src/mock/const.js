@@ -2,7 +2,7 @@ import { getRandomArrayElement } from '../util.js';
 
 const FILM_COUNT_PER_STEP = 5;
 
-const filters = [
+const filter = [
   {
     type: 'all',
     name: 'ALL',
@@ -59,4 +59,4 @@ const getUserProfile = () => ({
   userRank: SOME_RANK,
 });
 
-export { FILM_COUNT_PER_STEP, BOOLEAN, FilterType, SOME_POSTER, getUserProfile, SortType, UserAction, UpdateType, filters };
+export { FILM_COUNT_PER_STEP, BOOLEAN, FilterType, SOME_POSTER, getUserProfile, SortType, UserAction, UpdateType, filter };
