@@ -1,11 +1,13 @@
 import { getRandomArrayElement } from '../util.js';
 
+const FILM_COUNT_PER_STEP = 5;
+
 const BOOLEAN = [true, false];
 
 const UserAction = {
   UPDATE_FILM: 'UPDATE_FILM',
-  ADD_FILM: 'ADD_FILM',
-  DELETE_FILM: 'DELETE_FILM',
+  ADD_COMMENT: 'ADD_COMMENT',
+  DELETE_COMMENT: 'DELETE_COMMENT',
 };
 
 const UpdateType = {
@@ -49,4 +51,4 @@ const getUserProfile = () => ({
   userRank: SOME_RANK,
 });
 
-export { BOOLEAN, FilterType, SOME_POSTER, getUserProfile, SortType, UserAction, UpdateType };
+export { FILM_COUNT_PER_STEP, BOOLEAN, FilterType, SOME_POSTER, getUserProfile, SortType, UserAction, UpdateType };

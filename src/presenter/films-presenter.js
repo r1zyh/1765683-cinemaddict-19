@@ -11,8 +11,8 @@ import EmptyListMessage from '../view/empty-film-list-message.js';
 import FilmPresenter from './film-presenter.js';
 import FilmSectionPresenter from './film-section-presenter.js';
 import { SortType, UpdateType, UserAction } from '../mock/const.js';
+import { FILM_COUNT_PER_STEP } from '../mock/const.js';
 
-const FILM_COUNT_PER_STEP = 5;
 export default class FilmsPresenter {
   #mainContainer = document.querySelector('.main');
   #filmSectionComponent = new FilmSection();
@@ -25,7 +25,6 @@ export default class FilmsPresenter {
   #filmPresenter = new Map();
   #showMoreBtn;
   #currentSortType = SortType.DEFAULT;
-  #sourcedFilms = [];
   #renderedFilmCount = FILM_COUNT_PER_STEP;
 
   constructor({ filmModel, commentModel, filters }) {
@@ -34,6 +33,7 @@ export default class FilmsPresenter {
     this.filters = filters;
 
     this.filmModel.addObserver(this.#handleModelEvent);
+    this.commentModel.addObserver(this.#handleModelEvent);
   }
 
   get films() {
@@ -43,14 +43,12 @@ export default class FilmsPresenter {
 
       case SortType.BY_RATING:
         return [...this.filmModel.films].sort(sortRating);
-
-      case SortType.DEFAULT:
-        return ([...this.filmModel.films] = [...this.#sourcedFilms]);
     }
     return this.filmModel.films;
   }
 
   init() {
+    this.#renderFilters(this.filters);
     this.#renderPage();
   }
 
@@ -59,29 +57,28 @@ export default class FilmsPresenter {
       case UserAction.UPDATE_FILM:
         this.filmModel.updateFilm(updateType, update);
         break;
-      case UserAction.ADD_FILM:
-        this.filmModel.addFilm(updateType, update);
+      case UserAction.ADD_COMMENT:
+        this.filmModel.addComment(updateType, update);
         break;
-      case UserAction.DELETE_FILM:
-        this.filmModel.deleteFilm(updateType, update);
+      case UserAction.DELETE_COMMENT:
+        this.filmModel.deleteComment(updateType, update);
         break;
     }
+    return this.filmModel.films;
   };
 
   #handleModelEvent = (updateType, data) => {
     switch (updateType) {
       case UpdateType.PATCH:
-        // - обновить часть списка (например, когда поменялось описание)
         this.#filmPresenter.get(data.id).init(data);
         break;
       case UpdateType.MINOR:
-        this.#clearFilmsList();
+        this.#clearPage();
         this.#renderPage();
-        // - обновить список (например, когда задача ушла в архив)
+
         break;
       case UpdateType.MAJOR:
-        // - обновить всю доску (например, при переключении фильтра)
-        this.#clearFilmsList();
+        this.#clearPage({resetSortType: true, resetRenderedFilmCount: true});
         this.#renderPage();
         break;
     }
@@ -108,8 +105,7 @@ export default class FilmsPresenter {
     }
 
     this.#currentSortType = sortType;
-    this.#clearFilmsList({ resetRenderedFilmCount: true });
-    this.#renderShowMoreBtn();
+    this.#clearPage({ resetRenderedFilmCount: true });
     this.#renderPage();
   };
 
@@ -131,7 +127,7 @@ export default class FilmsPresenter {
 
     this.#renderFilms(films);
 
-    if (this.filmCount > FILM_COUNT_PER_STEP) {
+    if (filmCount > FILM_COUNT_PER_STEP) {
       this.#renderShowMoreBtn();
     }
   }
@@ -184,7 +180,7 @@ export default class FilmsPresenter {
     this.#filmPresenter.forEach((presenter) => presenter.resetView());
   };
 
-  #clearFilmsList({ resetRenderedFilmCount = false, resetSortType = false } = {}) {
+  #clearPage({ resetRenderedFilmCount = false, resetSortType = false } = {}) {
     const filmCount = this.films.length;
 
     this.#filmPresenter.forEach((presenter) => presenter.destroy());
@@ -197,9 +193,6 @@ export default class FilmsPresenter {
     if (resetRenderedFilmCount) {
       this.#renderedFilmCount = FILM_COUNT_PER_STEP;
     } else {
-      // На случай, если перерисовка доски вызвана
-      // уменьшением количества задач (например, удаление или перенос в архив)
-      // нужно скорректировать число показанных задач
       this.#renderedFilmCount = Math.min(filmCount, this.#renderedFilmCount);
     }
 
@@ -209,19 +202,15 @@ export default class FilmsPresenter {
   }
 
   #renderPage() {
-    const films = this.films;
-    const filmCount = films.length;
-
-    this.#renderFilters(this.filters);
     this.#renderSort();
     this.#renderFilmSection();
     this.#renderFilmList();
     this.#renderEmptyListMessage();
 
-    this.#renderFilm(films.slice(0, Math.min(filmCount, this.#renderedFilmCount)));
-
+    //this.#renderFilm(films.slice(0, Math.min(filmCount, this.#renderedFilmCount)));
+    /*
     if (filmCount > this.#renderedFilmCount) {
       this.#renderShowMoreBtn();
-    }
+    }*/
   }
 }

@@ -31,7 +31,7 @@ export default class FilmPresenter {
 
   init(film) {
     this.#comments = this.#commentsModel
-      .getComments()
+      .comments
       .filter((comment) => film.comments.includes(comment.id));
 
     this.#film = film;
