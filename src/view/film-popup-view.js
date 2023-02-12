@@ -1,6 +1,7 @@
 import { nanoid } from 'nanoid';
 import AbstractStatefulView from '../framework/view/abstract-stateful-view.js';
 import { humanizeCommentsDueDate, humanizePopUpDueDate } from '../util.js';
+import he from 'he';
 
 function createFilmPopupCommentsTemplate(filmComments) {
   console.log(filmComments);
@@ -131,53 +132,37 @@ function createFilmPopupTemplate(film) {
         </div>
         <div class="film-details__bottom-container">
           <section class="film-details__comments-wrap">
-          <h3 class="film-details__comments-title">Comments <span class="film-details__comments-count">${
-            film.comments.length
-          }</span></h3>
+          <h3 class="film-details__comments-title">Comments <span class="film-details__comments-count">${ film.comments.length}</span></h3>
              ${createFilmPopupCommentsTemplate(film.comments)}
           <ul class="film-details__comments-list">
           
           </ul>
           <form class="film-details__new-comment" action="" method="get">
             <div class="film-details__add-emoji-label">
-            ${
-              film.formSmile
-                ? `<img src="./images/emoji/${film.formSmile}.png" width="55" height="55" alt="${film.formSmile}">`
-                : ''
-            }
+            ${film.formSmile ? `<img src="./images/emoji/${film.formSmile}.png" width="55" height="55" alt="${film.formSmile}">` : '' }
             </div>
 
             <label class="film-details__comment-label">
-              <textarea class="film-details__comment-input" placeholder="Select reaction below and write comment here" name="comment">${
-                film.formText
-              }</textarea>
+              <textarea class="film-details__comment-input" placeholder="Select reaction below and write comment here" name="comment">${he.encode(film.formText)}</textarea>
             </label>
 
             <div class="film-details__emoji-list">
-              <input class="film-details__emoji-item visually-hidden" name="comment-emoji" type="radio" id="emoji-smile" value="smile" ${
-                film.formSmile === 'smile' ? 'checked' : ''
-              }>
+              <input class="film-details__emoji-item visually-hidden" name="comment-emoji" type="radio" id="emoji-smile" value="smile" ${film.formSmile === 'smile' ? 'checked' : ''}>
               <label class="film-details__emoji-label" for="emoji-smile">
                 <img src="./images/emoji/smile.png" width="30" height="30" alt="emoji">
               </label>
 
-              <input class="film-details__emoji-item visually-hidden" name="comment-emoji" type="radio" id="emoji-sleeping" value="sleeping" ${
-                film.formSmile === 'sleeping' ? 'checked' : ''
-              }>
+              <input class="film-details__emoji-item visually-hidden" name="comment-emoji" type="radio" id="emoji-sleeping" value="sleeping" ${film.formSmile === 'sleeping' ? 'checked' : ''}>
               <label class="film-details__emoji-label" for="emoji-sleeping">
                 <img src="./images/emoji/sleeping.png" width="30" height="30" alt="emoji">
               </label>
 
-              <input class="film-details__emoji-item visually-hidden" name="comment-emoji" type="radio" id="emoji-puke" value="puke" ${
-                film.formSmile === 'puke' ? 'checked' : ''
-              }>
+              <input class="film-details__emoji-item visually-hidden" name="comment-emoji" type="radio" id="emoji-puke" value="puke" ${film.formSmile === 'puke' ? 'checked' : ''}>
               <label class="film-details__emoji-label" for="emoji-puke">
                 <img src="./images/emoji/puke.png" width="30" height="30" alt="emoji">
               </label>
 
-              <input class="film-details__emoji-item visually-hidden" name="comment-emoji" type="radio" id="emoji-angry" value="angry" ${
-                film.formSmile === 'angry' ? 'checked' : ''
-              }>
+              <input class="film-details__emoji-item visually-hidden" name="comment-emoji" type="radio" id="emoji-angry" value="angry" ${film.formSmile === 'angry' ? 'checked' : ''}>
               <label class="film-details__emoji-label" for="emoji-angry">
                 <img src="./images/emoji/angry.png" width="30" height="30" alt="emoji">
               </label>
