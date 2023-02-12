@@ -3,7 +3,7 @@ import { humanizeCommentsDueDate, humanizePopUpDueDate } from '../util.js';
 
 function createFilmPopupCommentsTemplate(filmComments) {
   return filmComments.map((comment) => {
-    const { author, emotion, commentText, date } = comment;
+    const { author, emotion, commentText, date, id } = comment;
 
     return `
   <li class="film-details__comment">
@@ -15,7 +15,7 @@ function createFilmPopupCommentsTemplate(filmComments) {
       <p class="film-details__comment-info">
         <span class="film-details__comment-author">${author}</span>
         <span class="film-details__comment-day">${humanizeCommentsDueDate(date)}</span>
-        <button class="film-details__comment-delete">Delete</button>
+        <button class="film-details__comment-delete" data-id="${id}">Delete</button>
       </p>
     </div>
   </li>
@@ -180,6 +180,7 @@ export default class FilmPopup extends AbstractStatefulView {
     onWatchedClick,
     onWatchListClick,
     onScroll,
+    addComment
   }) {
     super();
     this.film = film;
@@ -189,6 +190,7 @@ export default class FilmPopup extends AbstractStatefulView {
     this.onWatchedClick = onWatchedClick;
     this.onWatchListClick = onWatchListClick;
     this.onScroll = onScroll;
+    this.addComment = addComment;
 
     this._state = FilmPopup.parseFilmToState(this.film);
     this._restoreHandlers();
@@ -202,6 +204,16 @@ export default class FilmPopup extends AbstractStatefulView {
       isWatchList: !!film.userDetails.watchlist,
       formSmile: null,
     };
+  }
+
+  static parseStateToFilm (state) {
+    const film = {...state};
+
+    delete film.formSmile;
+
+    delete film.comment;
+
+    return film;
   }
 
   get template() {
@@ -247,6 +259,17 @@ export default class FilmPopup extends AbstractStatefulView {
         this.updateElement({ formSmile: currentTarget.value });
       });
     });
+
+    this.element.querySelector('.film-details__comment-input').addEventListener('keydown', this.#addCommentHandler);
+
+    this.element.querySelectorAll('.film-details__comment-delete').forEach((element) => {
+      element.addEventListener('click', ({ currentTarget }) => {
+        const commentId = currentTarget.dataset.id;
+        this._state.comments.find((comment) => comment.id === commentId)
+        console.log(this._state.comments.find((comment) => comment.id === commentId))
+
+      });
+    });
   }
 
   #handleWatchClick = (evt) => {
@@ -270,6 +293,21 @@ export default class FilmPopup extends AbstractStatefulView {
     this.updateElement({isFavorite: !this._state.isFavorite});
 
     this.onFavoriteClick();
+
+  };
+
+  #addCommentHandler = (evt) => {
+    const textarea = document.querySelector('.film-details__comment-input');
+
+    if(evt.ctrlKey && evt.keyCode === 13) {
+      evt.preventDefault();
+      this.addComment({
+        comment: textarea.value,
+        emotion: this._state.emotion,
+        film: FilmPopup.parseStateToFilm(this._state)
+      });
+    }
+
 
   };
 

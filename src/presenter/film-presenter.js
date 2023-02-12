@@ -22,11 +22,12 @@ export default class FilmPresenter {
   #handleModeChange = null;
   #popupScrollTop = null;
 
-  constructor({ commentsModel, filmListContainer, onFilmChange, onModeChange }) {
+  constructor({ commentsModel, filmListContainer, onFilmChange, onModeChange, addComment }) {
     this.#filmListContainer = filmListContainer;
     this.#commentsModel = commentsModel;
     this.#handleFilmChange = onFilmChange;
     this.#handleModeChange = onModeChange;
+    this.addComment = addComment
   }
 
   init(film) {
@@ -58,6 +59,7 @@ export default class FilmPresenter {
       onWatchedClick: this.#handleWatchedClick,
       onFavoriteClick: this.#handleFavoriteClick,
       onScroll: this.#popupScrollPosHandler,
+      addComment: this.addComment,
     });
 
     if (prevFilmCardComponent === null || prevFilmPopupComponent === null) {
@@ -147,4 +149,5 @@ export default class FilmPresenter {
     this.#popupScrollTop = offset;
     this.#filmPopupComponent.updateScrollPosition(offset);
   };
+
 }

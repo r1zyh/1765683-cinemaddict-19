@@ -4,7 +4,6 @@ import FilmSection from '../view/film-section-view.js';
 import FilmListContainer from '../view/film-list-container-view.js';
 import FilmList from '../view/film-list-view.js';
 import Sort from '../view/sort-view.js';
-import Filters from '../view/filters-view.js';
 import FilmListHeader from '../view/film-list-header.js';
 import ShowMoreButton from '../view/show-more-button-view.js';
 import EmptyListMessage from '../view/empty-film-list-message.js';
@@ -21,7 +20,6 @@ export default class FilmsPresenter {
   #sortComponent = null;
   #filmListHeaderComponent = new FilmListHeader();
   #emptyMessage = new EmptyListMessage();
-  #filtersComponent;
   #filmPresenter = new Map();
   #showMoreBtn;
   #currentSortType = SortType.DEFAULT;
@@ -38,7 +36,6 @@ export default class FilmsPresenter {
   }
 
   get films() {
-
     const filterType = this.filterModel.filter;
     const films = this.filmModel.films;
     const filteredFilms = filter[filterType](films);
@@ -51,7 +48,6 @@ export default class FilmsPresenter {
         return filteredFilms.sort(sortRating);
     }
     return this.filmModel.films;
-
   }
 
   init() {
@@ -90,6 +86,7 @@ export default class FilmsPresenter {
         break;
     }
   };
+
 
   #renderSort() {
     this.#sortComponent = new Sort({
@@ -151,6 +148,7 @@ export default class FilmsPresenter {
       filmListContainer: this.#filmListContainerComponent,
       onFilmChange: this.#handleViewAction,
       onModeChange: this.#handleModeChange,
+      addComment: this.#addComment
     });
     filmPresenter.init(film);
     this.#filmPresenter.set(film.id, filmPresenter);
@@ -203,4 +201,12 @@ export default class FilmsPresenter {
       this.#renderShowMoreBtn();
     }
   }
+
+  #addComment = (data) => {
+    this.#handleViewAction(
+      UserAction.ADD_COMMENT,
+      UpdateType.PATCH,
+      data);
+
+  };
 }
