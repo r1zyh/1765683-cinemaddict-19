@@ -31,6 +31,7 @@ export default class FilmPresenter {
   }
 
   init(film) {
+    console.log(film.userDetails)
     this.#comments = this.#commentsModel
       .comments
       .filter((comment) => film.comments.includes(comment.id));
@@ -109,32 +110,33 @@ export default class FilmPresenter {
     this.#mode = Mode.DEFAULT;
   };
 
-  #handleWatchListClick = () => {
+  #handleWatchListClick = (action) => {
+    console.log(this.#film.userDetails)
     this.#handleFilmChange(UserAction.UPDATE_FILM, UpdateType.MINOR, {
       ...this.#film,
       userDetails: {
         ...this.#film.userDetails,
-        watchlist: !this.#film.userDetails.watchlist,
+        watchlist: action,
       },
     });
   };
 
-  #handleWatchedClick = () => {
+  #handleWatchedClick = (action) => {
     this.#handleFilmChange(UserAction.UPDATE_FILM, UpdateType.MINOR, {
       ...this.#film,
       userDetails: {
         ...this.#film.userDetails,
-        alreadyWatched: !this.#film.userDetails.alreadyWatched,
+        alreadyWatched: action,
       },
     });
   };
 
-  #handleFavoriteClick = () => {
+  #handleFavoriteClick = (action) => {
     this.#handleFilmChange(UserAction.UPDATE_FILM, UpdateType.MINOR, {
       ...this.#film,
       userDetails: {
         ...this.#film.userDetails,
-        favorite: !this.#film.userDetails.favorite,
+        favorite: action,
       },
     });
   };

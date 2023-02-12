@@ -35,10 +35,10 @@ const FilterType = {
 
 
 const filter = {
-  [FilterType.ALL]: (films) => films.filter((film) => !film.isArchive),
-  [FilterType.WATCHLIST]: (films) => films.filter((film) => !film.isWatchList),
-  [FilterType.HISTORY]: (films) => films.filter((film) => !film.isWatched),
-  [FilterType.FAVORITE]: (films) => films.filter((film) => !film.isFavorite),
+  [FilterType.ALL]: (films) => films,
+  [FilterType.WATCHLIST]: (films) => films.filter((film) => film.userDetails.watchlist),
+  [FilterType.HISTORY]: (films) => films.filter((film) => film.userDetails.alreadyWatched),
+  [FilterType.FAVORITE]: (films) => films.filter((film) => film.userDetails.favorite),
 };
 
 const SortType = {

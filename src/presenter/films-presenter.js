@@ -24,6 +24,7 @@ export default class FilmsPresenter {
   #showMoreBtn;
   #currentSortType = SortType.DEFAULT;
   #renderedFilmCount = FILM_COUNT_PER_STEP;
+  #filtersPresenter = null;
 
   constructor({ filmModel, commentModel, filterModel }) {
     this.filmModel = filmModel;
@@ -117,12 +118,6 @@ export default class FilmsPresenter {
   #renderFilms(films) {
     films.forEach((film) => this.#renderFilm(film));
   }
-  /*
-  #renderFilters() {
-    this.#filtersComponent = new Filters({ filter, currentFilterType: 'all', onFilterTypeChange: () => {} });
-    render(this.#filtersComponent, this.#mainContainer);
-  }
-  */
 
   #renderShowMoreBtn() {
     this.#showMoreBtn = new ShowMoreButton({ onClick: this.#showMoreBtnClickHandler });

@@ -2,10 +2,11 @@ import AbstractStatefulView from '../framework/view/abstract-stateful-view.js';
 import { humanizeCommentsDueDate, humanizePopUpDueDate } from '../util.js';
 
 function createFilmPopupCommentsTemplate(filmComments) {
-  return filmComments.map((comment) => {
-    const { author, emotion, commentText, date, id } = comment;
+  return filmComments
+    .map((comment) => {
+      const { author, emotion, commentText, date, id } = comment;
 
-    return `
+      return `
   <li class="film-details__comment">
     <span class="film-details__comment-emoji">
     <img src="./images/emoji/${emotion}.png" width="55" height="55" alt="emoji-smile">
@@ -20,7 +21,8 @@ function createFilmPopupCommentsTemplate(filmComments) {
     </div>
   </li>
     `;
-  }).join('');
+    })
+    .join('');
 }
 function createFilmPopupTemplate(film) {
   const { filmInfo } = film;
@@ -127,14 +129,20 @@ function createFilmPopupTemplate(film) {
         </div>
         <div class="film-details__bottom-container">
           <section class="film-details__comments-wrap">
-          <h3 class="film-details__comments-title">Comments <span class="film-details__comments-count">${film.comments.length}</span></h3>
+          <h3 class="film-details__comments-title">Comments <span class="film-details__comments-count">${
+            film.comments.length
+          }</span></h3>
              ${createFilmPopupCommentsTemplate(film.comments)}
           <ul class="film-details__comments-list">
           
           </ul>
           <form class="film-details__new-comment" action="" method="get">
             <div class="film-details__add-emoji-label">
-            ${film.formSmile ? `<img src="./images/emoji/${film.formSmile}.png" width="55" height="55" alt="${film.formSmile}">` : ''}
+            ${
+              film.formSmile
+                ? `<img src="./images/emoji/${film.formSmile}.png" width="55" height="55" alt="${film.formSmile}">`
+                : ''
+            }
             </div>
 
             <label class="film-details__comment-label">
@@ -142,22 +150,30 @@ function createFilmPopupTemplate(film) {
             </label>
 
             <div class="film-details__emoji-list">
-              <input class="film-details__emoji-item visually-hidden" name="comment-emoji" type="radio" id="emoji-smile" value="smile" ${film.formSmile === 'smile' ? 'checked' : ''}>
+              <input class="film-details__emoji-item visually-hidden" name="comment-emoji" type="radio" id="emoji-smile" value="smile" ${
+                film.formSmile === 'smile' ? 'checked' : ''
+              }>
               <label class="film-details__emoji-label" for="emoji-smile">
                 <img src="./images/emoji/smile.png" width="30" height="30" alt="emoji">
               </label>
 
-              <input class="film-details__emoji-item visually-hidden" name="comment-emoji" type="radio" id="emoji-sleeping" value="sleeping" ${film.formSmile === 'sleeping' ? 'checked' : ''}>
+              <input class="film-details__emoji-item visually-hidden" name="comment-emoji" type="radio" id="emoji-sleeping" value="sleeping" ${
+                film.formSmile === 'sleeping' ? 'checked' : ''
+              }>
               <label class="film-details__emoji-label" for="emoji-sleeping">
                 <img src="./images/emoji/sleeping.png" width="30" height="30" alt="emoji">
               </label>
 
-              <input class="film-details__emoji-item visually-hidden" name="comment-emoji" type="radio" id="emoji-puke" value="puke" ${film.formSmile === 'puke' ? 'checked' : ''}>
+              <input class="film-details__emoji-item visually-hidden" name="comment-emoji" type="radio" id="emoji-puke" value="puke" ${
+                film.formSmile === 'puke' ? 'checked' : ''
+              }>
               <label class="film-details__emoji-label" for="emoji-puke">
                 <img src="./images/emoji/puke.png" width="30" height="30" alt="emoji">
               </label>
 
-              <input class="film-details__emoji-item visually-hidden" name="comment-emoji" type="radio" id="emoji-angry" value="angry" ${film.formSmile === 'angry' ? 'checked' : ''}>
+              <input class="film-details__emoji-item visually-hidden" name="comment-emoji" type="radio" id="emoji-angry" value="angry" ${
+                film.formSmile === 'angry' ? 'checked' : ''
+              }>
               <label class="film-details__emoji-label" for="emoji-angry">
                 <img src="./images/emoji/angry.png" width="30" height="30" alt="emoji">
               </label>
@@ -180,7 +196,7 @@ export default class FilmPopup extends AbstractStatefulView {
     onWatchedClick,
     onWatchListClick,
     onScroll,
-    addComment
+    addComment,
   }) {
     super();
     this.film = film;
@@ -206,8 +222,8 @@ export default class FilmPopup extends AbstractStatefulView {
     };
   }
 
-  static parseStateToFilm (state) {
-    const film = {...state};
+  static parseStateToFilm(state) {
+    const film = { ...state };
 
     delete film.formSmile;
 
@@ -252,7 +268,7 @@ export default class FilmPopup extends AbstractStatefulView {
 
     this.element
       .querySelector('.film-details__control-button--favorite')
-      .addEventListener('click', this. #handleFavoriteClick);
+      .addEventListener('click', this.#handleFavoriteClick);
 
     this.element.querySelectorAll('.film-details__emoji-item').forEach((element) => {
       element.addEventListener('change', ({ currentTarget }) => {
@@ -260,55 +276,51 @@ export default class FilmPopup extends AbstractStatefulView {
       });
     });
 
-    this.element.querySelector('.film-details__comment-input').addEventListener('keydown', this.#addCommentHandler);
+    this.element
+      .querySelector('.film-details__comment-input')
+      .addEventListener('keydown', this.#addCommentHandler);
 
     this.element.querySelectorAll('.film-details__comment-delete').forEach((element) => {
       element.addEventListener('click', ({ currentTarget }) => {
         const commentId = currentTarget.dataset.id;
-        this._state.comments.find((comment) => comment.id === commentId)
-        console.log(this._state.comments.find((comment) => comment.id === commentId))
-
+        this._state.comments.find((comment) => comment.id === commentId);
+        console.log(this._state.comments.find((comment) => comment.id === commentId));
       });
     });
   }
 
   #handleWatchClick = (evt) => {
     evt.preventDefault();
-    this.updateElement({isWatchList: !this._state.isWatchList});
-
-    this.onWatchListClick();
-
+    const isWatchList = !this._state.isWatchList;
+    this.onWatchListClick(isWatchList);
+    this.updateElement({ isWatchList });
   };
 
   #handleWatchedClick = (evt) => {
     evt.preventDefault();
-    this.updateElement({isWatched: !this._state.isWatched});
-
-    this.onWatchedClick();
-
+    const isWatched = !this._state.isWatched;
+    this.onWatchedClick(isWatched);
+    this.updateElement({ isWatched });
   };
 
   #handleFavoriteClick = (evt) => {
     evt.preventDefault();
-    this.updateElement({isFavorite: !this._state.isFavorite});
-
-    this.onFavoriteClick();
+    const isFavorite = !this._state.isWatched;
+    this.onFavoriteClick(isFavorite);
+    this.updateElement({ isFavorite });
 
   };
 
   #addCommentHandler = (evt) => {
     const textarea = document.querySelector('.film-details__comment-input');
 
-    if(evt.ctrlKey && evt.keyCode === 13) {
+    if (evt.ctrlKey && evt.keyCode === 13) {
       evt.preventDefault();
       this.addComment({
         comment: textarea.value,
         formSmile: this._state.formSmile,
-        film: FilmPopup.parseStateToFilm(this._state)
+        film: FilmPopup.parseStateToFilm(this._state),
       });
     }
-
-
   };
-
 }

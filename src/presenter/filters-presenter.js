@@ -1,8 +1,7 @@
-import { remove, replace, render } from '../framework/render.js';
+import { RenderPosition, remove, replace, render } from '../framework/render.js';
 import FiltersView from '../view/filters-view.js';
 import { filter } from '../mock/const';
 import { FilterType, UpdateType } from '../mock/const';
-
 export default class FilterPresenter {
   #filterContainer = null;
   #filterModel = null;
@@ -57,7 +56,7 @@ export default class FilterPresenter {
     });
 
     if (prevFilterComponent === null) {
-      render(this.#filterComponent, this.#filterContainer);
+      render(this.#filterComponent, this.#filterContainer, RenderPosition.AFTERBEGIN );
       return;
     }
 
