@@ -303,7 +303,7 @@ export default class FilmPopup extends AbstractStatefulView {
       evt.preventDefault();
       this.addComment({
         comment: textarea.value,
-        emotion: this._state.emotion,
+        formSmile: this._state.formSmile,
         film: FilmPopup.parseStateToFilm(this._state)
       });
     }
