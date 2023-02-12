@@ -1,7 +1,9 @@
+import { nanoid } from 'nanoid';
 import AbstractStatefulView from '../framework/view/abstract-stateful-view.js';
 import { humanizeCommentsDueDate, humanizePopUpDueDate } from '../util.js';
 
 function createFilmPopupCommentsTemplate(filmComments) {
+  console.log(filmComments);
   return filmComments
     .map((comment) => {
       const { author, emotion, commentText, date, id } = comment;
@@ -146,7 +148,9 @@ function createFilmPopupTemplate(film) {
             </div>
 
             <label class="film-details__comment-label">
-              <textarea class="film-details__comment-input" placeholder="Select reaction below and write comment here" name="comment"></textarea>
+              <textarea class="film-details__comment-input" placeholder="Select reaction below and write comment here" name="comment">${
+                film.formText
+              }</textarea>
             </label>
 
             <div class="film-details__emoji-list">
@@ -197,6 +201,7 @@ export default class FilmPopup extends AbstractStatefulView {
     onWatchListClick,
     onScroll,
     addComment,
+    deleteComment,
   }) {
     super();
     this.film = film;
@@ -207,6 +212,7 @@ export default class FilmPopup extends AbstractStatefulView {
     this.onWatchListClick = onWatchListClick;
     this.onScroll = onScroll;
     this.addComment = addComment;
+    this.deleteComment = deleteComment;
 
     this._state = FilmPopup.parseFilmToState(this.film);
     this._restoreHandlers();
@@ -219,6 +225,7 @@ export default class FilmPopup extends AbstractStatefulView {
       isWatched: !!film.userDetails.alreadyWatched,
       isWatchList: !!film.userDetails.watchlist,
       formSmile: null,
+      formText: '',
     };
   }
 
@@ -227,7 +234,7 @@ export default class FilmPopup extends AbstractStatefulView {
 
     delete film.formSmile;
 
-    delete film.comment;
+    delete film.commentText;
 
     return film;
   }
@@ -280,47 +287,69 @@ export default class FilmPopup extends AbstractStatefulView {
       .querySelector('.film-details__comment-input')
       .addEventListener('keydown', this.#addCommentHandler);
 
-    this.element.querySelectorAll('.film-details__comment-delete').forEach((element) => {
-      element.addEventListener('click', ({ currentTarget }) => {
-        const commentId = currentTarget.dataset.id;
-        this._state.comments.find((comment) => comment.id === commentId);
-        console.log(this._state.comments.find((comment) => comment.id === commentId));
-      });
+    this.element.addEventListener('click', this.#deleteCommentClickHandler);
+
+    this.element.querySelector('.film-details__comment-input').addEventListener('input', (evt) => {
+      this._setState({ formText: evt.currentTarget.value });
     });
   }
 
   #handleWatchClick = (evt) => {
     evt.preventDefault();
     const isWatchList = !this._state.isWatchList;
-    this.onWatchListClick(isWatchList);
-    this.updateElement({ isWatchList });
+    this.updateElement({
+      isWatchList,
+      userDetails: { ...this._state.userDetails, watchlist: isWatchList },
+    });
+    this.onWatchListClick(this._state.userDetails);
   };
 
   #handleWatchedClick = (evt) => {
     evt.preventDefault();
     const isWatched = !this._state.isWatched;
-    this.onWatchedClick(isWatched);
-    this.updateElement({ isWatched });
+    this.updateElement({
+      isWatched,
+      userDetails: { ...this._state.userDetails, alreadyWatched: isWatched },
+    });
+    this.onWatchedClick(this._state.userDetails);
   };
 
   #handleFavoriteClick = (evt) => {
     evt.preventDefault();
-    const isFavorite = !this._state.isWatched;
-    this.onFavoriteClick(isFavorite);
-    this.updateElement({ isFavorite });
-
+    const isFavorite = !this._state.isFavorite;
+    this.updateElement({
+      isFavorite,
+      userDetails: { ...this._state.userDetails, favorite: isFavorite },
+    });
+    this.onFavoriteClick(this._state.userDetails);
   };
 
   #addCommentHandler = (evt) => {
-    const textarea = document.querySelector('.film-details__comment-input');
-
     if (evt.ctrlKey && evt.keyCode === 13) {
       evt.preventDefault();
       this.addComment({
-        comment: textarea.value,
-        formSmile: this._state.formSmile,
-        film: FilmPopup.parseStateToFilm(this._state),
+        commentText: this._state.formText,
+        emotion: this._state.formSmile,
+        id: nanoid(),
+        author: '',
+        date: new Date(),
       });
+    }
+  };
+
+  #deleteCommentClickHandler = (evt) => {
+    if (evt.target.classList.contains('film-details__comment-delete')) {
+      const commentToDelete = this._state.comments.find((comment) => comment.id === evt.target.dataset.id);
+      this.updateElement({
+        comments: this._state.comments.filter((comment) => comment.id !== evt.target.dataset.id),
+        scrollPosition: this.element.scrollTop
+      });
+      this.deleteComment({
+        ...FilmPopup.parseStateToFilm(this._state),
+        commentToDelete
+      });
+      console.log(this._state)
+      this.element.scrollTo(0, this._state.scrollPosition);
     }
   };
 }

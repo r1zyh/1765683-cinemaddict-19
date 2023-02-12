@@ -52,7 +52,6 @@ export default class FilmsPresenter {
   }
 
   init() {
-    //this.#renderFilters();
     this.#renderPage();
   }
 
@@ -61,9 +60,9 @@ export default class FilmsPresenter {
       case UserAction.UPDATE_FILM:
         this.filmModel.updateFilm(updateType, update);
         break;
-      case UserAction.ADD_COMMENT:
+      case UserAction.ADD_COMMENT: {
         this.commentModel.addComment(updateType, update);
-        break;
+        break;}
       case UserAction.DELETE_COMMENT:
         this.commentModel.deleteComment(updateType, update);
         break;
@@ -74,8 +73,9 @@ export default class FilmsPresenter {
   #handleModelEvent = (updateType, data) => {
     switch (updateType) {
       case UpdateType.PATCH:
-        this.#filmPresenter.get(data.id).init(data);
+        this.#filmPresenter.get(data.film.id).init(data.film);
         break;
+
       case UpdateType.MINOR:
         this.#clearPage();
         this.#renderPage();
@@ -143,7 +143,7 @@ export default class FilmsPresenter {
       filmListContainer: this.#filmListContainerComponent,
       onFilmChange: this.#handleViewAction,
       onModeChange: this.#handleModeChange,
-      addComment: this.#addComment
+      handleViewAction: this.#handleViewAction
     });
     filmPresenter.init(film);
     this.#filmPresenter.set(film.id, filmPresenter);
@@ -197,11 +197,4 @@ export default class FilmsPresenter {
     }
   }
 
-  #addComment = (data) => {
-    this.#handleViewAction(
-      UserAction.ADD_COMMENT,
-      UpdateType.PATCH,
-      data);
-
-  };
 }

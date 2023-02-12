@@ -27,14 +27,11 @@ export default class FilmPresenter {
     this.#commentsModel = commentsModel;
     this.#handleFilmChange = onFilmChange;
     this.#handleModeChange = onModeChange;
-    this.addComment = addComment
+    this.addComment = addComment;
   }
 
   init(film) {
-    console.log(film.userDetails)
-    this.#comments = this.#commentsModel
-      .comments
-      .filter((comment) => film.comments.includes(comment.id));
+    this.#comments = this.#commentsModel.comments.filter((comment) => film.comments.includes(comment.id));
 
     this.#film = film;
 
@@ -56,11 +53,12 @@ export default class FilmPresenter {
       },
       onCloseClick: this.#closePopup,
       scrollPosition: this.#popupScrollTop,
-      onWatchListClick: this.#handleWatchListClick,
-      onWatchedClick: this.#handleWatchedClick,
-      onFavoriteClick: this.#handleFavoriteClick,
+      onWatchListClick: this.#handlePopUpFilterClick,
+      onWatchedClick: this.#handlePopUpFilterClick,
+      onFavoriteClick: this.#handlePopUpFilterClick,
       onScroll: this.#popupScrollPosHandler,
-      addComment: this.addComment,
+      addComment: this.#addComment,
+      deleteComment: this.#deleteComment
     });
 
     if (prevFilmCardComponent === null || prevFilmPopupComponent === null) {
@@ -110,33 +108,32 @@ export default class FilmPresenter {
     this.#mode = Mode.DEFAULT;
   };
 
-  #handleWatchListClick = (action) => {
-    console.log(this.#film.userDetails)
+  #handleWatchListClick = () => {
     this.#handleFilmChange(UserAction.UPDATE_FILM, UpdateType.MINOR, {
       ...this.#film,
       userDetails: {
         ...this.#film.userDetails,
-        watchlist: action,
+        watchlist: !this.#film.userDetails.watchlist,
       },
     });
   };
 
-  #handleWatchedClick = (action) => {
+  #handleWatchedClick = () => {
     this.#handleFilmChange(UserAction.UPDATE_FILM, UpdateType.MINOR, {
       ...this.#film,
       userDetails: {
         ...this.#film.userDetails,
-        alreadyWatched: action,
+        alreadyWatched: !this.#film.userDetails.alreadyWatched,
       },
     });
   };
 
-  #handleFavoriteClick = (action) => {
+  #handleFavoriteClick = () => {
     this.#handleFilmChange(UserAction.UPDATE_FILM, UpdateType.MINOR, {
       ...this.#film,
       userDetails: {
         ...this.#film.userDetails,
-        favorite: action,
+        favorite: !this.#film.userDetails.favorite,
       },
     });
   };
@@ -152,4 +149,18 @@ export default class FilmPresenter {
     this.#filmPopupComponent.updateScrollPosition(offset);
   };
 
+  #handlePopUpFilterClick = (userDetails) => {
+    this.#handleFilmChange(UserAction.UPDATE_FILM, UpdateType.MINOR, {
+      ...this.#film,
+      userDetails,
+    });
+  };
+
+  #addComment = (data) => {
+    this.#handleFilmChange(UserAction.ADD_COMMENT, UpdateType.PATCH, { film: this.#film, data });
+  };
+
+  #deleteComment = (data) => {
+    this.#handleFilmChange(UserAction.DELETE_COMMENT, UpdateType.PATCH, { film: this.#film, data });
+  };
 }
