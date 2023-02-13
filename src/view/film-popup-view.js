@@ -4,7 +4,6 @@ import { humanizeCommentsDueDate, humanizePopUpDueDate } from '../util.js';
 import he from 'he';
 
 function createFilmPopupCommentsTemplate(filmComments) {
-  console.log(filmComments);
   return filmComments
     .map((comment) => {
       const { author, emotion, commentText, date, id } = comment;
@@ -133,9 +132,8 @@ function createFilmPopupTemplate(film) {
         <div class="film-details__bottom-container">
           <section class="film-details__comments-wrap">
           <h3 class="film-details__comments-title">Comments <span class="film-details__comments-count">${ film.comments.length}</span></h3>
-             ${createFilmPopupCommentsTemplate(film.comments)}
           <ul class="film-details__comments-list">
-          
+          ${createFilmPopupCommentsTemplate(film.comments)}
           </ul>
           <form class="film-details__new-comment" action="" method="get">
             <div class="film-details__add-emoji-label">
@@ -218,7 +216,6 @@ export default class FilmPopup extends AbstractStatefulView {
     const film = { ...state };
 
     delete film.formSmile;
-
     delete film.commentText;
 
     return film;
@@ -272,7 +269,7 @@ export default class FilmPopup extends AbstractStatefulView {
       .querySelector('.film-details__comment-input')
       .addEventListener('keydown', this.#addCommentHandler);
 
-    this.element.addEventListener('click', this.#deleteCommentClickHandler);
+    this.element.querySelector('.film-details__comments-list').addEventListener('click', this.#deleteCommentClickHandler);
 
     this.element.querySelector('.film-details__comment-input').addEventListener('input', (evt) => {
       this._setState({ formText: evt.currentTarget.value });
@@ -333,7 +330,6 @@ export default class FilmPopup extends AbstractStatefulView {
         ...FilmPopup.parseStateToFilm(this._state),
         commentToDelete
       });
-      console.log(this._state)
       this.element.scrollTo(0, this._state.scrollPosition);
     }
   };

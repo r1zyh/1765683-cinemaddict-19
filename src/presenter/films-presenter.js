@@ -24,7 +24,7 @@ export default class FilmsPresenter {
   #showMoreBtn;
   #currentSortType = SortType.DEFAULT;
   #renderedFilmCount = FILM_COUNT_PER_STEP;
-  #filtersPresenter = null;
+
 
   constructor({ filmModel, commentModel, filterModel }) {
     this.filmModel = filmModel;
@@ -62,9 +62,11 @@ export default class FilmsPresenter {
         break;
       case UserAction.ADD_COMMENT: {
         this.commentModel.addComment(updateType, update);
+        this.filmsModel.updateFilm(updateType, update);
         break;}
       case UserAction.DELETE_COMMENT:
         this.commentModel.deleteComment(updateType, update);
+        this.filmsModel.updateFilm(updateType, update);
         break;
     }
     return this.filmModel.films;

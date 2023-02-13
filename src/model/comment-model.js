@@ -1,31 +1,34 @@
-import { getRandomComment } from '../mock/comment.js';
 import Observable from '../framework/observable.js';
 
-const COMMENTS_LIST_LENGTH = 6;
-
 export default class CommentsModel extends Observable {
-  #comments = Array.from({ length: COMMENTS_LIST_LENGTH }, getRandomComment);
+  #commentsApiService = null;
 
-  get comments() {
-    return this.#comments;
+  constructor({commentsApiService}) {
+    super();
+    this.#commentsApiService = commentsApiService;
   }
 
-  addComment(updateType, update) {
-    this.#comments = [...this.#comments, update.data ];
-    update.film = { ...update.film, comments: [...update.film.comments, update.data.id] };
-
-    this._notify(updateType, update);
+  async getComments(filmId) {
+    return await this.#commentsApiService.getComments(filmId);
   }
 
-  deleteComment(updateType, update) {
-    const index = this.#comments.findIndex((film) => film.id === update.id);
-
-    if (index === -1) {
-      throw new Error('Can\t delete unexisting comment');
+  async addComment(updateType, update) {
+    try {
+      this.#commentsApiService.addComment(update.id, update.commentToAdd);
+      delete update.commentToAdd;
+      this._notify(updateType, update);
+    } catch(err) {
+      throw new Error('Can\'t add comment');
     }
+  }
 
-    this.#comments = [...this.#comments.slice(0, index), ...this.#comments.slice(index + 1)];
-
-    this._notify(updateType);
+  async deleteComment(updateType, update) {
+    try {
+      this.#commentsApiService.deleteComment(update.commentToDelete.id);
+      delete update.commentToDelete;
+      this._notify(updateType, update);
+    } catch(err) {
+      throw new Error('Can\'t delete comment');
+    }
   }
 }
